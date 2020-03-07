@@ -1,0 +1,28 @@
+﻿<Border x:Class="Controls.PathButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Controls"  
+             mc:Ignorable="d" x:Name="pathButton"  
+             PreviewMouseDown="pathButton_PreviewMouseDown"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid >
+        <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch">
+            <Rectangle.Fill>
+                <VisualBrush  Stretch="Fill">
+                    <VisualBrush.Transform>
+                        <TransformGroup>
+                            <ScaleTransform  />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </VisualBrush.Transform>
+                    <VisualBrush.Visual>
+                        <Path HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Fill" x:Name="pathbutton"></Path>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <TextBlock HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis" x:Name="text1" VerticalAlignment="Bottom" Height="25"  FontSize="18"   Margin="0,0,0,-25"></TextBlock>
+    </Grid>
+</Border>

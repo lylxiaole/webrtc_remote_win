@@ -1,0 +1,18 @@
+﻿<con:CommonWindow x:Class="RemoteWindow.MainWindow"
+        xmlns:con="http://www.lylproject.controls" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RemoteWindow" 
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        
+        <ContentControl x:Name="content"></ContentControl>
+        <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="MainSnackbar"  Grid.Row="1" />
+    </Grid>
+</con:CommonWindow>

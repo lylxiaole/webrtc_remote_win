@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="UserMoudle.Login"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserMoudle"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <materialDesign:Flipper VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignCardFlipper}">
+            <materialDesign:Flipper.FrontContent>
+                <Grid Height="290" Width="200">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="160" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.7*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryDark" VerticalAlignment="Stretch">
+                        <materialDesign:PackIcon Kind="AccountCircle" Height="128" Width="128" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </materialDesign:ColorZone>
+
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="1">
+                        <materialDesign:PackIcon Kind="Account" VerticalAlignment="Center" Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}" />
+                        <smtx:XamlDisplay Key="fields_1" Margin="8,0,0,0">
+                            <TextBox Width="160"  Text="{Binding userName}" materialDesign:HintAssist.Hint="Name"></TextBox>
+                        </smtx:XamlDisplay>
+                    </WrapPanel>
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
+                        <materialDesign:PackIcon  Kind="Key" VerticalAlignment="Center"  Foreground="{Binding ElementName=NameTextBox, Path=BorderBrush}" />
+                        <smtx:XamlDisplay Key="fields_1"  Margin="8,0,0,0" >
+                            <TextBox Width="160" Text="{Binding pwd}"  materialDesign:HintAssist.Hint="Password" />
+                        </smtx:XamlDisplay>
+                    </WrapPanel>
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
+                        <materialDesign:Ripple PreviewMouseUp="Ripple_PreviewMouseUp" Focusable="True" Cursor="Hand" Foreground="Blue" Content="注册" Margin="8,0"  />
+                        <materialDesign:Ripple PreviewMouseUp="Ripple_PreviewMouseUp_1"  Focusable="True" Cursor="Hand" Foreground="Blue" Content="修改密码"   Margin="8,0" />
+                    </WrapPanel>
+
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,4" Grid.Row="4">
+                        <Button VerticalAlignment="Center" Command="{Binding loginCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="130" >
+                            登录
+                        </Button>
+                    </WrapPanel>
+                </Grid>
+            </materialDesign:Flipper.FrontContent>
+            <materialDesign:Flipper.BackContent>
+                <Grid Height="256" Width="200">
+
+                </Grid>
+            </materialDesign:Flipper.BackContent>
+        </materialDesign:Flipper>
+
+    </Grid>
+</UserControl>

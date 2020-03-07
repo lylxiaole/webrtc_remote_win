@@ -1,0 +1,310 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dg="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+
+    <!--Set common DataGrid Style 全局样式-->
+    <!--2.Header bar should be a gradient 全局DataGird列头样式-->
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="FontFamily" Value="Open Sans"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#1a2b64"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#ffffff" Offset="0.2"/>
+                    <GradientStop Color="#c4c5c5" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <!--1) No arrow for sort order-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                    <Grid>
+                        <dg:DataGridHeaderBorder 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            IsClickable="{TemplateBinding CanUserSort}" 
+                            IsPressed="{TemplateBinding IsPressed}" 
+                            IsHovered="{TemplateBinding IsMouseOver}" 
+                            Padding="{TemplateBinding Padding}" 
+                            SortDirection="{TemplateBinding SortDirection}" 
+                            SeparatorBrush="{TemplateBinding SeparatorBrush}" 
+                            SeparatorVisibility="{TemplateBinding SeparatorVisibility}">
+                            <Grid Height="26">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0,0,1,0" BorderBrush="#b1b4b9"/>
+                                <ContentPresenter Grid.Column="0"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Margin="3,0,0,0"/>
+                                <Thumb x:Name="PART_RightHeaderGripper" Grid.Column="2"
+                        HorizontalAlignment="Right"
+                        Width="2" BorderThickness="2"                        
+                        BorderBrush="Transparent"
+                        Cursor="SizeWE"/>
+                                <Border Grid.Column="1" x:Name="SortIncArrow" HorizontalAlignment="Right" VerticalAlignment="Center" Width="10" Height="6"
+                                        Visibility="Collapsed">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Images/sort_arrow_up.png"></ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border Grid.Column="1" x:Name="SortDecArrow" HorizontalAlignment="Right" VerticalAlignment="Center" Width="10" Height="6"
+                                        Visibility="Collapsed">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Images/sort_arrow_down.png"></ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </dg:DataGridHeaderBorder>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="SortDirection" Value="Ascending">
+                            <Setter TargetName="SortIncArrow" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="SortDecArrow" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="SortDirection" Value="Descending">
+                            <Setter TargetName="SortIncArrow" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="SortDecArrow" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--row header 全局DataGird行头样式-->
+    <Style TargetType="{x:Type DataGridRowHeader}" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+                    <Grid>
+                        <dg:DataGridHeaderBorder Background="{TemplateBinding Background}"
+						                                               BorderBrush="{TemplateBinding BorderBrush}"
+						                                               BorderThickness="{TemplateBinding BorderThickness}"
+						                                               IsHovered="{TemplateBinding IsMouseOver}"
+						                                               IsPressed="{TemplateBinding IsPressed}"
+						                                               IsSelected="{TemplateBinding IsRowSelected}"
+						                                               Orientation="Horizontal"
+						                                               Padding="{TemplateBinding Padding}"
+						                                               SeparatorBrush="{TemplateBinding SeparatorBrush}"
+						                                               SeparatorVisibility="{TemplateBinding SeparatorVisibility}"
+                                                                       Width="{TemplateBinding Width}">
+                            <StackPanel Orientation="Horizontal">
+                                <ContentPresenter VerticalAlignment="Stretch" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </StackPanel>
+                        </dg:DataGridHeaderBorder>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsRowSelected" Value="True">
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--the gradient rows(渐变行，行宽26)-->
+    <Style x:Key="CustomDataGridRow" TargetType="{x:Type DataGridRow}">
+        <Setter Property="Height" Value="26"/>
+        <Style.Triggers>
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#efefef"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--global DataGridRow style 全局DataGridRow样式-->
+    <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource CustomDataGridRow}">
+    </Style>
+
+    <!--DatagridCell Style(全局DataGird单元格选中样式)-->
+    <Style TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontFamily" Value="Open Sans"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate  TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter  VerticalAlignment="Center" Margin="3,0,0,0"></ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#229BE0"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--6.Black border around whole control 全局DataGird样式-->
+    <Style TargetType="DataGrid" x:Key="DataGridStyle">
+        <Setter Property="Background" Value="#ffffff"/>
+        <Setter Property="BorderBrush" Value="#b1b4b9"/>
+        <Setter Property="VerticalGridLinesBrush" Value="#b1b4b9"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="Transparent"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="AlternationCount" Value="2"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserResizeColumns" Value="false"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="HeadersVisibility" Value="Column"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGrid}">
+                    <Border Background="{TemplateBinding Background}"
+					        BorderBrush="{TemplateBinding BorderBrush}"
+					        BorderThickness="{TemplateBinding BorderThickness}"
+					        Padding="{TemplateBinding Padding}"
+					        SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
+                            <ScrollViewer.Template>
+                                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="4" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="0" x:Name="RightGapColumn"/>
+                                            <ColumnDefinition Width="0"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="26" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="4"/>
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <!--<Grid.OpacityMask>
+                                                    <VisualBrush Visual="{Binding ElementName=MaskBorder}" Stretch="None"/>
+                                                </Grid.OpacityMask>-->
+                                        <Border x:Name="MaskBorder" Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="4" Background="White">
+                                        </Border>
+                                        <Border x:Name="ShadowBorder" Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="LightGray" BorderThickness="1">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="2" ShadowDepth="0" Color="#b1b4b9"/>
+                                            </Border.Effect>
+                                        </Border>
+                                        <!--左上角边框背景色-->
+                                        <Border Grid.Column="0" Grid.Row="0" Width="{Binding CellsPanelHorizontalOffset,
+										                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+										        Focusable="false"
+										      
+										        Visibility="{Binding HeadersVisibility,
+										                             ConverterParameter={x:Static DataGridHeadersVisibility.All},
+										                             Converter={x:Static DataGrid.HeadersVisibilityConverter},
+										                             RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" >
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop Color="#ffffff" Offset="0.2"/>
+                                                    <GradientStop Color="#c4c5c5" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <!--行头与内容所空间隙-->
+                                        <Border Grid.Column="1" Grid.Row="0">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop Color="#ffffff" Offset="0.2"/>
+                                                    <GradientStop Color="#c4c5c5" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <DataGridRowsPresenter x:Name="PART_RowHeadersPresenter" Grid.Column="0" Grid.Row="1"
+                                                                        Visibility="{Binding HeadersVisibility,
+										                                ConverterParameter={x:Static DataGridHeadersVisibility.Row},
+										                                Converter={x:Static DataGrid.HeadersVisibilityConverter},
+										                                RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" >
+
+                                        </DataGridRowsPresenter>
+                                        <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="2" Grid.Row="0"
+                                                                        Visibility="{Binding HeadersVisibility,
+										                                ConverterParameter={x:Static DataGridHeadersVisibility.Column},
+										                                Converter={x:Static DataGrid.HeadersVisibilityConverter},
+										                                RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                        </DataGridColumnHeadersPresenter>
+                                        <!--4 Corner of header and slider shouldn't be darker-->
+                                        <Border Grid.Column="3" Grid.Row="0" x:Name="RightGapBorder">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop Color="#ffffff" Offset="0.2"/>
+                                                    <GradientStop Color="#c4c5c5" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="1" Grid.Column="2" CanContentScroll="{TemplateBinding CanContentScroll}"/>
+                                        <ScrollBar x:Name="PART_VerticalScrollBar" Margin="2,4,4,4"
+										           Grid.Row="0" Grid.RowSpan="4"
+										           Grid.Column="4" 
+										           Maximum="{TemplateBinding ScrollableHeight}"
+										           Orientation="Vertical"
+										           Style="{DynamicResource ScrollBarVerticalStyle}"
+										           ViewportSize="{TemplateBinding ViewportHeight}"
+										           Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+										           Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                        <ScrollBar x:Name="PART_HorizontalScrollBar" Margin="0,0,0,4"
+											           Grid.Row="3" Grid.Column="2"
+											           Maximum="{TemplateBinding ScrollableWidth}"
+											           Orientation="Horizontal"
+											           ViewportSize="{TemplateBinding ViewportWidth}"
+											           Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                                       Style="{DynamicResource ScrollBarHorizontalStyle}"
+											           Value="{Binding HorizontalOffset, Mode=OneWay,RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=PART_VerticalScrollBar,Path=Visibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="Visible">
+                                            <Setter TargetName="RightGapColumn" Property="Width" Value="0"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ScrollViewer.Template>
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Set DataGrid Style 非全局样式-->
+    <!--DataGrid cell right-->
+    <Style x:Key="DataGridCellRight" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Right"/>
+    </Style>
+
+    <!--DataGrid cell center-->
+    <Style x:Key="DataGridCellCenter" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>  
+    <!--DataGrid 滚动条及按钮样式 end-->
+
+    <!--GridRowAlternationStyle 行间隔样式 -->
+    <Style TargetType="{x:Type DataGridRow}" x:Key="GridRowAlternationStyle">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#006699"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+            <!--change row color row by row-->
+            <Trigger Property="AlternationIndex" Value="1" >
+                <Setter Property="Background" Value="LightGray" />
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="0" >
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,76 @@
+﻿<con:CommonWindow x:Class="UserMoudle.RemoteWindow.ControllerWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UserMoudle.RemoteWindow"
+        mc:Ignorable="d"
+        xmlns:attachs="clr-namespace:LYL.Common;assembly=LYL.Common"
+        xmlns:comtypes="clr-namespace:UserMoudle.RemoteWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML" 
+        x:Name="topControl" xmlns:con="http://www.lylproject.controls" 
+        HeaderVisibility="Collapsed" 
+        Title="lyl远程列表" Height="450" Width="800">
+    <materialDesign:DialogHost Identifier="controlDialogHost">
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--*********************************************************************************-->
+            <ListBox Grid.Row="0" FlowDirection="LeftToRight" x:Name="controlList" ItemsSource="{Binding controllers}" SelectedItem="{Binding currentController}" SelectedIndex="0" MouseLeftButtonDown="TopControl_MouseLeftButtonDown" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type comtypes:RemoteController}">
+                        <WrapPanel  >
+                            <TextBlock Text="{Binding remoteMachine.machineName,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}"
+                                        Margin="8 0 3 0" HorizontalAlignment="Left" />
+                            <materialDesign:PackIcon  Kind="Close" Cursor="Hand" >
+                                <materialDesign:PackIcon.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.closeConnectionCommand, ElementName=topControl}" CommandParameter="{Binding remoteMachine.machineId}"/>
+                                </materialDesign:PackIcon.InputBindings>
+                            </materialDesign:PackIcon>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <WrapPanel ScrollViewer.HorizontalScrollBarVisibility="Auto" IsItemsHost="True"></WrapPanel>
+                    </ControlTemplate>
+                </ListBox.Template>
+            </ListBox>
+            <!--*********************************************************************************-->
+            <ToolBarTray Grid.Row="1"  x:Name="quickBar" MouseLeftButtonDown="TopControl_MouseLeftButtonDown">
+                <ToolBar DataContext="{Binding toolbarManager}" Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                    <Button ToolTip="全屏" x:Name="fullscreen" Click="Fullscreen_Click">
+                        <materialDesign:PackIcon Kind="Fullscreen" />
+                    </Button>
+                    <Button ToolTip="发送文件"  x:Name="sendfile" Command="{Binding startSendFileCommand}">
+                        <materialDesign:PackIcon Kind="FileSend" />
+                    </Button>
+                    <Button ToolTip="发送组合键" Visibility="Collapsed" x:Name="sendKeys" >
+                        <materialDesign:PackIcon Kind="Keyboard" />
+                    </Button>
+                    <Separator />
+                    <!--////-->
+                    <Button ToolTip="查看文件列表" Command="{Binding showFileListCommand}">
+                        <materialDesign:Badged DockPanel.Dock="Right" VerticalAlignment="Center" Badge="{Binding CurrentFileCount}" ToolTip="文件列表">
+                            <materialDesign:PackIcon Kind="Receipt"   />
+                        </materialDesign:Badged>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            <!--*********************************************************************************-->
+            <Grid Grid.Row="2" x:Name="imgParent" Background="#080808">
+                <Image x:Name="imgcontrol" Stretch="Uniform" Height="{Binding ElementName=imgParent,Path=Height}" 
+                       HorizontalAlignment="Stretch"  />
+
+                <materialDesign:PackIcon VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Gray" 
+                                         Kind="ChevronDownBox" Cursor="Hand" PreviewMouseUp="PackIcon_PreviewMouseDown" />
+            </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
+
+</con:CommonWindow>

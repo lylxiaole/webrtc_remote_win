@@ -1,0 +1,20 @@
+ <con:LYLTabControl Background="Transparent" Margin="0,-45,0,0">
+            <con:LYLTabItem Header="图片浏览">
+                <local:ImagesPreview></local:ImagesPreview>
+            </con:LYLTabItem>
+            <con:LYLTabItem   Header="画板" >
+                <Grid >
+                    <TextBlock   Text="画图" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </con:LYLTabItem>
+            <con:LYLTabItem  Header="本地信息">
+                <Grid >
+                    <local:ImageIInsert></local:ImageIInsert>
+                </Grid>
+            </con:LYLTabItem>
+            <con:LYLTabItem  Header="个人信息">
+                <Grid >
+                    <TextBlock FontSize="36" Text="aaronyang的尊重" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </con:LYLTabItem>
+        </con:LYLTabControl>

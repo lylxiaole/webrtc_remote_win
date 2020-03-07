@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{352BF0AD-363D-490D-A865-F7C017603906}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UserMoudle</RootNamespace>
+    <AssemblyName>UserMoudle</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.2.0.325, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MaterialDesignColors.1.2.0\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.6.0.325, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MaterialDesignThemes.2.6.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ShowMeTheXAML, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ShowMeTheXAML.1.0.12\lib\net45\ShowMeTheXAML.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="websocket-sharp, Version=1.0.1.0, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebSocketSharp-netstandard.1.0.1\lib\net45\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChangePwd\ChangePwdView.xaml.cs">
+      <DependentUpon>ChangePwdView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePwd\ChangePwdViewModel.cs" />
+    <Compile Include="Login\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login\LoginViewModel.cs" />
+    <Compile Include="MachineWindow\BeControllerLogic.cs" />
+    <Compile Include="MachineWindow\ControllerLogic.cs" />
+    <Compile Include="MachineWindow\MachineWindowView.xaml.cs">
+      <DependentUpon>MachineWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MachineWindow\MachineWindowViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Register\RegisterView.xaml.cs">
+      <DependentUpon>RegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Register\RegisterViewModel.cs" />
+    <Compile Include="RemoteWindow\BeControllWindow.xaml.cs">
+      <DependentUpon>BeControllWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RemoteWindow\ToolBarManager\FileList.xaml.cs">
+      <DependentUpon>FileList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RemoteWindow\ToolBarManager\ToolBarManagerViewModel.cs" />
+    <Compile Include="RemoteWindow\remoteControlLogic\ControlCommonClasses.cs" />
+    <Compile Include="RemoteWindow\remoteControlLogic\FileChannelMessageDeal.cs" />
+    <Compile Include="RemoteWindow\remoteControlLogic\RemoteBeingControlled.cs" />
+    <Compile Include="RemoteWindow\remoteControlLogic\RemoteControlBase.cs" />
+    <Compile Include="RemoteWindow\remoteControlLogic\RemoteController.cs" />
+    <Compile Include="RemoteWindow\remoteControlLogic\VideoFrameDeal.cs" />
+    <Compile Include="RemoteWindow\ControllerWindowView.xaml.cs">
+      <DependentUpon>ControllerWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RemoteWindow\ControllerWindowViewModel.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ChangePwd\ChangePwdView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Login\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MachineWindow\MachineWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Register\RegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RemoteWindow\BeControllWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RemoteWindow\ControllerWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RemoteWindow\ToolBarManager\FileList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Controls\Controls.csproj">
+      <Project>{8AF7E7EC-909C-4F8D-B56A-D6690F1A4517}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dispath\Dispath.csproj">
+      <Project>{12358CDF-D705-426C-A4C1-233BF31FA87E}</Project>
+      <Name>Dispath</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EncodeousCommon.Sys.Windows\EncodeousCommon.Sys.Windows.csproj">
+      <Project>{1C48817C-3C80-4D0D-95BC-FEACB3BA358A}</Project>
+      <Name>EncodeousCommon.Sys.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LYL.Common\LYL.Common.csproj">
+      <Project>{21301dfb-7df4-4ff4-b5b3-9d64336e5c72}</Project>
+      <Name>LYL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LYL.Data\LYL.Data.csproj">
+      <Project>{E1AC889D-E7CD-4E2A-9354-2669F8FBCC05}</Project>
+      <Name>LYL.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LYL.Logic\LYL.Logic.csproj">
+      <Project>{08BB7CB3-21E8-4DEE-BB2C-E4C2F8D870F5}</Project>
+      <Name>LYL.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
+      <Project>{bcda21ee-b785-49ab-b065-312f3cc70a33}</Project>
+      <Name>WebrtcSDK_NET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

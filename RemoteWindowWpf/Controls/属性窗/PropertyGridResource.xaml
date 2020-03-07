@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Controls">
+
+    <Style x:Key="propertygrid" TargetType="DataGrid">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGrid">
+                    <ListView>
+                        <ListView.Template>
+                            <ControlTemplate>
+                                <WrapPanel Orientation="Vertical" IsItemsHost="True"></WrapPanel>
+                            </ControlTemplate>
+                        </ListView.Template>
+                        <!--****************************************************************-->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Grid Grid.Column="0">
+                                        
+                                    </Grid>
+
+
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                    </ListView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

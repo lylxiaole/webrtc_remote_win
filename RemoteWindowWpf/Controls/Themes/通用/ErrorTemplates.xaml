@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+    
+    <Style x:Key="textBoxErrorTemplate" TargetType="FrameworkElement">
+        <Style.Setters>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <TextBlock ToolTip="{Binding ElementName=ador,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" Foreground="Red"  ></TextBlock>
+                            <AdornedElementPlaceholder x:Name="ador"></AdornedElementPlaceholder>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+</ResourceDictionary>

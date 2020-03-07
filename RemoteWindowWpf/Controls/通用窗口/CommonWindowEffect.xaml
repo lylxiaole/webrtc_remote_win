@@ -1,0 +1,184 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:local="clr-namespace:Controls">
+
+
+    <!--最小化按钮样式-->
+    <Style x:Key="minBtnStyle" TargetType="Button">
+        <Setter Property="Margin" Value="2,0,2,0"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="Opacity" Value=".75"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate  TargetType="Button">
+                    <Grid>
+                        <Rectangle Width="18" Height="16" Fill="White" Opacity=".1" RadiusX="4" RadiusY="4" StrokeThickness="2"></Rectangle>
+                        <Rectangle Width="18" Height="16" StrokeThickness="2" RadiusX="4" RadiusY="4" Stroke="White"></Rectangle>
+                        <!--按钮内容-->
+                        <Grid>
+                            <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
+                                <Line StrokeThickness="2" Stroke="White" X1="0" Y1="4" X2="8" Y2="4"></Line>
+                            </Canvas>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver"  Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--关闭按钮样式-->
+    <Style x:Key="closeBtnStyle" TargetType="Button">
+        <Setter Property="Margin" Value="2,0,2,0"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="Opacity" Value=".75"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse x:Name="borderBtn" Width="18" Height="18" StrokeThickness="2" Fill="#4f535d" Stroke="White"></Ellipse>
+                        <!--按钮内容-->
+                        <Grid>
+                            <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5">
+                                <Line StrokeThickness="2" Stroke="White" X1="0" Y1="0" X2="8" Y2="8"></Line>
+                                <Line StrokeThickness="2" Stroke="White" X1="0" Y1="8" X2="8" Y2="0"></Line>
+                            </Canvas>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver"  Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="btnStyle" TargetType="Button">
+        <Setter Property="Margin" Value="5,5,5,5"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="Opacity" Value=".75"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Background="Transparent" Width="{TemplateBinding Width}">
+                            <TextBlock Grid.Column="1" Text="{TemplateBinding Content}"  HorizontalAlignment="Center" Margin="3 0 3 0" Foreground="White"></TextBlock>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsMouseOver"  Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <!--基窗口模板-->
+    <ControlTemplate x:Key="BaseWindowControlTemplate" TargetType="{x:Type Window}">
+        <Border  x:Name="topborder" BorderBrush="Black" BorderThickness="0.2" Margin="0">
+            <Grid  Width="{TemplateBinding Width}"   Height="{TemplateBinding Height}">
+                <!--//斜角箭头-->
+                <Thumb Opacity="0" x:Name="lefttop"     Background="Black"  Panel.ZIndex="888" Height="20" Width="20" Margin="0"   Cursor="SizeNWSE"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Thumb Opacity="0" x:Name="righttop"    Background="Black"  Panel.ZIndex="888" Height="20" Width="20" Margin="0,0,0,0"      Cursor="SizeNESW" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                <Thumb Opacity="0" x:Name="leftbottom"  Background="Black"  Panel.ZIndex="888" Height="20" Width="20" Margin="0,0,0,0" HorizontalAlignment="Left" Cursor="SizeNESW"  VerticalAlignment="Bottom" />
+                <Thumb Opacity="0" x:Name="rightbottom" Background="Black"  Panel.ZIndex="888" Height="20" Width="20" Margin="0,0,0,0" HorizontalAlignment="Right"  Cursor="SizeNWSE"  VerticalAlignment="Bottom" />
+                <!--四边箭头-->
+                <Thumb Opacity="0" x:Name="left"   Background="Black"  Panel.ZIndex="887"   Height="{Binding ElementName=borderBg,Path=ActualHeight}"  Width="6"  Cursor="SizeWE" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Thumb Opacity="0" x:Name="top"    Background="Black"  Panel.ZIndex="887"   Height="6" Width="{Binding ElementName=borderBg,Path=ActualWidth}"    Cursor="SizeNS" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                <Thumb Opacity="0" x:Name="right"  Background="Black"  Panel.ZIndex="887"   Margin="0,0,0,0" Height="{Binding ElementName=borderBg,Path=ActualHeight}" Width="6" Cursor="SizeWE"  HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Thumb Opacity="0" x:Name="bottom" Background="Black"  Panel.ZIndex="887"   Margin="0,0,0,0" Height="6" Width="{Binding ElementName=borderBg,Path=ActualWidth}"    Cursor="SizeNS" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                <!--**************模板正式内容*****************************************************************************-->
+                <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Panel.ZIndex="3" x:Name="borderBg"  BorderBrush="Black" Background="{TemplateBinding Background}">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <!--//蒙板-->
+                        <Grid  Panel.ZIndex="1" Width="{Binding ElementName=topborder,Path=Width}" Height="{Binding ElementName=topborder,Path=Height}" x:Name="contenttop">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding BackgroundImage}" Value="{x:Null}">
+                                            <Setter  Property="Background" Value="White"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="{Binding BackgroundImage}"></ImageBrush>
+                            </Grid.Background> 
+                            <!--模糊效果-->
+                            <Grid.Effect>
+                                <BlurEffect Radius="50"  RenderingBias="Performance" KernelType="Gaussian"></BlurEffect>
+                            </Grid.Effect>
+                        </Grid> 
+                        <!--**************模板正式内容*****************************************************************************-->
+                        <Grid Width="{Binding ElementName=topborder,Path=Width}" Height="{Binding ElementName=topborder,Path=Height}" 
+                              Background="Transparent" Panel.ZIndex="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="1" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <!--**************头部样式*****************************************************************************-->
+                            <Border Grid.Row="0" Visibility="{Binding HeaderVisibility, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="Black" BorderThickness="0.2" Background="#4f535d" CornerRadius="0"  Height="32"  Padding="8,5,16,5" >
+                                <Border.InputBindings>
+                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding MouseDoubleClickCommand}" ></MouseBinding>
+                                </Border.InputBindings>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseMove">
+                                        <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"  />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <!--*******************************************************************************************-->
+                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Visible"  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding ElementName=w, Path=Title}" Foreground="White" Opacity=".75" HorizontalAlignment="Left"></TextBlock>
+                                    <!--关闭按钮-->
+                                    <Button x:Name="btnMin"  Style="{StaticResource minBtnStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseDown">
+                                                <i:InvokeCommandAction Command="{Binding MinWindowCommand}"  />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                    <Button x:Name="btnClose" Style="{StaticResource closeBtnStyle}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseDown">
+                                                <i:InvokeCommandAction Command="{Binding CloseWindowCommand}"  />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <!--**********************内容样式*********************************************************************-->
+                            <Grid  Margin="0,0,0,0" Grid.Row="1" >
+                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                            </Grid>
+                            <!--***************************底部样式****************************************************************-->
+                            <Border Visibility="{Binding BottomVisibility, RelativeSource={RelativeSource TemplatedParent}}" Background="Black" Grid.Row="2" Margin="0,0,0,0" Padding="0,0,30,0" CornerRadius="0">
+                                <StackPanel Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                    <Button x:Name="btnYes" Style="{StaticResource btnStyle}"></Button>
+                                    <Button x:Name="btnNo" Style="{StaticResource btnStyle}"></Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <!--基窗口样式-->
+    <Style x:Key="BaseWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="Template" Value="{StaticResource BaseWindowControlTemplate}"/>
+        
+    </Style>
+
+
+</ResourceDictionary>

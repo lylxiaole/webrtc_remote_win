@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Controls.Themes">
+    <ResourceDictionary.MergedDictionaries>
+        <!--错误模板-->
+        <ResourceDictionary Source="/Controls;component/Themes/通用/ErrorTemplates.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    <Style BasedOn="{StaticResource textBoxErrorTemplate}" TargetType="TextBox"></Style>
+</ResourceDictionary>

@@ -1,0 +1,18 @@
+﻿<Dialogs:DialogBase x:Class="Controls.Dialogs.LoadingDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Controls.Dialogs"
+             mc:Ignorable="d" 
+             xmlns:Dialogs="clr-namespace:Controls.Dialogs"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Width="120" Height="120"
+             >
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Margin="16">
+            <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center" Margin="16" IsIndeterminate="True" Value="0" />
+            <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" HorizontalAlignment="Center"  Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">不等待</Button>
+        </StackPanel>
+    </Grid>
+</Dialogs:DialogBase>
