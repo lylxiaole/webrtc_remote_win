@@ -1,0 +1,4 @@
+.vs/* 
+RemoteWindowWpf/*/bin/* 
+RemoteWindowWpf/*/obj/* 
+packages/*
