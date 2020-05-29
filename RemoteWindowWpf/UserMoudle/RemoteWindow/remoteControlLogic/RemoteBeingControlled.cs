@@ -44,8 +44,7 @@ namespace UserMoudle.RemoteWindow
 
         public void onRemoteClientSdpCompleted(string machineId)
         {
-            WebSocketClient.SendMessage(machineId, "", msgType.client_onCallee_SetRemoteSdpCompleted);
-            this.dealIceCandidate();
+            WebSocketClient.SendMessage(machineId, "", msgType.client_onCallee_SetRemoteSdpCompleted); 
         }
 
         protected override void PeerConnection_onNewDataChannel(object sender, DataChannel e)

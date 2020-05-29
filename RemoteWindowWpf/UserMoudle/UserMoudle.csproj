@@ -76,6 +76,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangePwd\ChangePwdView.xaml.cs">
@@ -92,6 +93,14 @@
       <DependentUpon>MachineWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MachineWindow\MachineWindowViewModel.cs" />
+    <Compile Include="Play\PlayController.xaml.cs">
+      <DependentUpon>PlayController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Play\PlayControllerViewModel.cs" />
+    <Compile Include="Play\PlayView.xaml.cs">
+      <DependentUpon>PlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Play\PlayViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,6 +159,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Play\PlayController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Play\PlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Register\RegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -193,7 +210,7 @@
       <Name>LYL.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
-      <Project>{bcda21ee-b785-49ab-b065-312f3cc70a33}</Project>
+      <Project>{A82510EF-844E-420C-BCA1-DF2A037638CA}</Project>
       <Name>WebrtcSDK_NET</Name>
     </ProjectReference>
   </ItemGroup>

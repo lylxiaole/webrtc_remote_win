@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebrtcSDK_NET.WebRtc
 {
@@ -25,7 +21,7 @@ namespace WebrtcSDK_NET.WebRtc
         public MediaStream mediaStream { get; set; }
         public string trackId { get; set; }
         public string trackType { get; set; }
-        
+
     }
 
     public class VedioFrame
@@ -34,6 +30,13 @@ namespace WebrtcSDK_NET.WebRtc
         public string vedioTrackId { get; set; }
         public int width { get; set; }
         public int height { get; set; }
+    }
+
+    public class AudioFrame
+    {
+        public byte[] data { get; set; }
+      
+        public int size { get; set; } 
     }
 
     public enum RTCSignalingState
@@ -67,10 +70,10 @@ namespace WebrtcSDK_NET.WebRtc
 
     public enum RTCDataChannelState
     {
-        RTCDataChannelConnecting=0,
-        RTCDataChannelOpen=1,
-        RTCDataChannelClosing=2,
-        RTCDataChannelClosed=3,
+        RTCDataChannelConnecting = 0,
+        RTCDataChannelOpen = 1,
+        RTCDataChannelClosing = 2,
+        RTCDataChannelClosed = 3,
     };
 
     public class ChannelMessage

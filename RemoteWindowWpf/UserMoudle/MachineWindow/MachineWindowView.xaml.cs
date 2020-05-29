@@ -1,7 +1,7 @@
 ﻿using Controls.Dialogs;
 using Dispath.MoudleInterface;
 using LYL.Logic.Machine;
-using MaterialDesignThemes.Wpf; 
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +26,17 @@ namespace UserMoudle.MachineWindow
     [View(MoudleName = "主界面")]
     public partial class MachineWindowView : UserControl, INormalView
     {
+
+        static MachineWindowViewModel viewModel = null;
         public MachineWindowView()
         {
-            InitializeComponent(); 
-            this.DataContext = new MachineWindowViewModel();
+            InitializeComponent();
+            if(viewModel==null)
+            {
+                viewModel = new MachineWindowViewModel();
+            }
+
+            this.DataContext = viewModel;
         }
 
         public MachineWindowViewModel CurrentContext
@@ -39,20 +46,20 @@ namespace UserMoudle.MachineWindow
                 return this.DataContext as MachineWindowViewModel;
             }
         }
-         
+
         #region 快捷操作按钮 
         private void MenuPopupButton_OnClick(object sender, RoutedEventArgs e)
-        { 
+        {
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        { 
+        {
         }
 
         private void ChangeMachineNameButton_OnClick(object sender, RoutedEventArgs e)
         {
             ChangeMachineNameCon popup = new ChangeMachineNameCon(MachineLogic.localMachine().machineName);
-            popup.PopupDialog(closingEventHandler: this.onChangeMachineNamePopupClosed);
+            popup.PopupDialog(closingEventHandler: this.onChangeMachineNamePopupClosed, dialogIdentifier: "dskjfdsjfdslkjfsldkfj");
         }
 
         private void onChangeMachineNamePopupClosed(object sender, DialogClosingEventArgs eventArgs)
@@ -60,9 +67,11 @@ namespace UserMoudle.MachineWindow
             ChangeMachineNameCon popup = eventArgs.Parameter as ChangeMachineNameCon;
             var newName = popup.NewText;
             var oldName = popup.OldText;
-            this.CurrentContext.ChangeMachineName(newName, oldName); 
+            this.CurrentContext.ChangeMachineName(newName, oldName);
         }
 
         #endregion
+
+     
     }
 }

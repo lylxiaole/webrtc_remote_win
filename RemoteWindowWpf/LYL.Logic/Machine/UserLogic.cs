@@ -18,7 +18,7 @@ namespace LYL.Logic.Machine
 
     public class UserLogic
     {
-        public static bool Login(string username, string pwd,string machineName)
+        public static bool Login(string username, string pwd, string machineName)
         {
             var localmachine = MachineLogic.localMachine();
             var logininf = new loginInfo
@@ -48,7 +48,9 @@ namespace LYL.Logic.Machine
         public static LYLUserMachineInfo AutoLogin(string token)
         {
             var url = ServerAddrs.lylApiServerAddr + "api/user/autoLogin";
-            var usermachine = HTTPRuqest.LYLPost<LYLUserMachineInfo>(url, new { token=token});
+            var headers = new Dictionary<string, string>();
+            headers.Add("token", token);
+            var usermachine = HTTPRuqest.LYLPost<LYLUserMachineInfo>(url, null, headers);
             return usermachine;
         }
 
@@ -81,20 +83,20 @@ namespace LYL.Logic.Machine
             var url = ServerAddrs.lylApiServerAddr + "api/user/requestChangePwd";
             var checkInfo = new EmailCheckInfo
             {
-                username = username 
+                username = username
             };
             var checkid = HTTPRuqest.LYLPost<string>(url, checkInfo);
             return checkid;
         }
 
-        public static bool? checkChangePwd(string checkId, string checkCode,string newPwd)
+        public static bool? checkChangePwd(string checkId, string checkCode, string newPwd)
         {
             var url = ServerAddrs.lylApiServerAddr + "api/user/checkChangePwdInfo";
             var checkInfo = new EmailCheckInfo
             {
                 checkId = checkId,
                 checkingCode = checkCode,
-                pwd=newPwd
+                pwd = newPwd
             };
             return HTTPRuqest.LYLPost<bool?>(url, checkInfo);
         }

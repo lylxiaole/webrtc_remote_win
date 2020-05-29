@@ -32,5 +32,13 @@ namespace LYL.Logic
                 return System.Configuration.ConfigurationSettings.AppSettings["lylRtcServerAddr"];
             }
         }
+
+        public static string lylPlayServerAddr
+        {
+            get
+            {
+                return System.Configuration.ConfigurationSettings.AppSettings["lylPlayServerAddr"];
+            }
+        }
     }
 }

@@ -120,12 +120,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
-      <Project>{bcda21ee-b785-49ab-b065-312f3cc70a33}</Project>
-      <Name>WebrtcSDK_NET</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\timg.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

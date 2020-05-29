@@ -58,8 +58,7 @@ namespace UserMoudle.RemoteWindow
         public ToolBarManagerViewModel toolbarManager { get; set; } = new ToolBarManagerViewModel();
          
         public RemoteController findRemoteController(string remoteId)
-        {
-
+        { 
             return controllers.FirstOrDefault(o => o.remoteMachine.machineId == remoteId);
         }
          
@@ -111,8 +110,8 @@ namespace UserMoudle.RemoteWindow
 
         public void onRemoteClientSdpCompleted(string machineId)
         {
-            var newcontrol = this.findRemoteController(machineId);
-            newcontrol?.onRemoteClientSdpCompleted();
+            //var newcontrol = this.findRemoteController(machineId);
+            //newcontrol?.onRemoteClientSdpCompleted();
         }
 
         /// <summary>

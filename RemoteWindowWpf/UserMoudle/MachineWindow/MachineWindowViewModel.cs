@@ -1,5 +1,6 @@
 ﻿using Controls.Dialogs;
 using Dispath;
+using Dispath.MoudleInterface;
 using LYL.Common;
 using LYL.Data.Models;
 using LYL.Logic.Machine;
@@ -35,7 +36,7 @@ namespace UserMoudle.MachineWindow
         public ObservableCollection<LYLUserMachineInfo> myMachines { get; set; } = new ObservableCollection<LYLUserMachineInfo>();
 
         public MachineWindowViewModel()
-        { 
+        {
             this.wsclient.OnMessage += WebSocketClient_OnMessage;
             this.wsclient.OnClose += Wsclient_OnClose;
             this.wsclient.OnError += Wsclient_OnError;
@@ -68,8 +69,8 @@ namespace UserMoudle.MachineWindow
         {
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                this.DealMessages(e);
-            })); 
+                this.wsclient.DealMessage(this, e);
+            }));
         }
 
         private void showWaiting()
@@ -81,13 +82,11 @@ namespace UserMoudle.MachineWindow
             Application.Current.Dispatcher.Invoke(() =>
             {
                 waitingCon = new LoadingDialog();
-                DialogHost.Show(waitingCon, closingEventHandler: (a, b) =>
+                waitingCon.PopupDialog(dialogIdentifier: "dskjfdsjfdslkjfsldkfj", closingEventHandler: (a, b) =>
                 {
-                    waitingCon = null;
-                    if (this.wsclient.state != WebSocketSharp.WebSocketState.Open)
-                    {
-                        Environment.Exit(0);
-                    }
+                    waitingCon = null; 
+                    Environment.Exit(0);
+
                 });
             });
         }
@@ -103,79 +102,17 @@ namespace UserMoudle.MachineWindow
                 waitingCon = null;
             });
         }
-
         #endregion
 
         #region websocket消息处理
-        public void DealMessages(LYL.Common.websocketMsgTemp<object> e)
-        {
-            if (e.msgType == msgType.system_onMachineOnline)
-            {
-                var data = JsonConvert.DeserializeObject<websocketMsgTemp<LYLUserMachineInfo>>(JsonConvert.SerializeObject(e));
-                Application.Current.Dispatcher.Invoke(() => { this.onMachineOnLine(data.content); });
-            }
-            else if (e.msgType == msgType.system_onMachineDownline)
-            {
-                var data = JsonConvert.DeserializeObject<websocketMsgTemp<LYLUserMachineInfo>>(JsonConvert.SerializeObject(e));
-                Application.Current.Dispatcher.Invoke(() => { this.onMachineDownLine(data.content); });
-            }
-            else if (e.msgType == msgType.system_onGetMyMachine)
-            {
-                var data = JsonConvert.DeserializeObject<websocketMsgTemp<LYLUserMachineInfo>>(JsonConvert.SerializeObject(e));
-                Application.Current.Dispatcher.Invoke(() => { this.onMachineOnLine(data.content); });
-            }
-            else if (e.msgType == msgType.system_clientNotOnline)
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    ErrorDialogCon con = new ErrorDialogCon();
-                    con.ErrorMsg = "用户不在线,消息发送失败";
-                });
-            }
-            else if (e.msgType == msgType.client_onRequestConnect)
-            {
-                this.onRecive_RequestConnect(e.sendMachineId, e.content.ToString());
-            }
-            else if (e.msgType == msgType.client_onAnswerRequestConnect)
-            {
-                this.onRecive_AnswerRequestConnect(e.sendMachineId, bool.Parse(e.content.ToString()));
-            }
-            else if (e.msgType == msgType.client_onCutPeerConnection)
-            {
-                this.onRecive_CutPeerConnection(e.sendMachineId);
-            }
-            else if (e.msgType == msgType.client_onCaller_CreateOffer)
-            {
-                this.onRecive_CreateOffer(e.sendMachineId, e.content);
-            }
-            else if (e.msgType == msgType.client_onCallee_CreateAnswer)
-            {
-                this.onRecive_CreateAnswer(e.sendMachineId, e.content);
-            }
-            else if (e.msgType == msgType.client_onCallee_CreateIceCandite)
-            {
-                this.onRecive_CalleeCreateIceCandite(e.sendMachineId, e.content);
-            }
-            else if (e.msgType == msgType.client_onCaller_CreateIceCandite)
-            {
-                this.onRecive_CallerCreateIceCandite(e.sendMachineId, e.content);
-            }
-            else if (e.msgType == msgType.client_onCallee_SetRemoteSdpCompleted)
-            {
-                this.onRecive_CalleeSetRemoteSdpCompleted(e.sendMachineId, e.content);
-            }
-            else if (e.msgType == msgType.client_onCaller_SetRemoteSdpCompleted)
-            {
-                this.onRecive_CallerSetRemoteSdpCompleted(e.sendMachineId, e.content);
-            }
-            else if (e.msgType == msgType.client_onNameChange)
-            {
-                this.onMyMachineNameChange(e.sendMachineId, e.content);
-            }
-        }
 
-        private void onRecive_RequestConnect(string remoteMachineId, string machinePwd)
+        [MessageType(msgType.client_onRequestConnect)]
+        public void onRecive_RequestConnect(websocketMsgTemp<object> e)
         {
+            string remoteMachineId = e.sendMachineId;
+            string machinePwd = e.content.ToString();
+
+
             if (machinePwd == this.CurrentMachine.machinepwd && this.BeControllerLogic.CanConnect == true)
             {
                 WebSocketClient.SendMessage(remoteMachineId, true, msgType.client_onAnswerRequestConnect);
@@ -185,8 +122,13 @@ namespace UserMoudle.MachineWindow
                 WebSocketClient.SendMessage(remoteMachineId, false, msgType.client_onAnswerRequestConnect);
             }
         }
-        private void onRecive_AnswerRequestConnect(string remoteMachineId, bool isAgree)
+
+        [MessageType(msgType.client_onAnswerRequestConnect)]
+        public void onRecive_AnswerRequestConnect(websocketMsgTemp<object> e)
         {
+            string remoteMachineId = e.sendMachineId;
+            var isAgree = bool.Parse(e.content.ToString());
+
             if (isAgree == false)
             {
                 Application.Current.Dispatcher.Invoke(() =>
@@ -197,47 +139,76 @@ namespace UserMoudle.MachineWindow
                 });
                 return;
             }
-
             this.ControllerLogic.ConnectMachine(remoteMachineId);
+        }
 
-        }
-        private void onRecive_CutPeerConnection(string remoteMachineId)
+        [MessageType(msgType.client_onCutPeerConnection)]
+        public void onRecive_CutPeerConnection(websocketMsgTemp<object> e)
         {
+            string remoteMachineId = e.sendMachineId;
         }
-        private void onRecive_CreateOffer(string remoteMachineId, object remoteOffer)
+
+
+        [MessageType(msgType.client_onCaller_CreateOffer)]
+        public void onRecive_CreateOffer(websocketMsgTemp<SdpInfo> e)
         {
-            var sdpinfo = JsonConvert.DeserializeObject<SdpInfo>(JsonConvert.SerializeObject(remoteOffer));
+            string remoteMachineId = e.sendMachineId;
+            //var sdpinfo = JsonConvert.DeserializeObject<SdpInfo>(JsonConvert.SerializeObject(remoteOffer)); 
+            var sdpinfo = e.content;
             this.BeControllerLogic.ReciveRemoteConnection(remoteMachineId, sdpinfo);
         }
-        private void onRecive_CreateAnswer(string remoteMachineId, object remoteAnswer)
+
+        [MessageType(msgType.client_onCallee_CreateAnswer)]
+        public void onRecive_CreateAnswer(websocketMsgTemp<SdpInfo> e)
         {
-            var sdpinfo = JsonConvert.DeserializeObject<SdpInfo>(JsonConvert.SerializeObject(remoteAnswer));
+            string remoteMachineId = e.sendMachineId;
+            //, object remoteAnswer
+            var sdpinfo = e.content;
             this.ControllerLogic.SetRemoteAnswer(remoteMachineId, sdpinfo);
         }
-        private void onRecive_CallerCreateIceCandite(string remoteMachineId, object remoteIceCandite)
+
+        [MessageType(msgType.client_onCaller_CreateIceCandite)]
+        public void onRecive_CallerCreateIceCandite(websocketMsgTemp<IceCandidate> e)
         {
-            var icecandidate = JsonConvert.DeserializeObject<IceCandidate>(JsonConvert.SerializeObject(remoteIceCandite));
+            string remoteMachineId = e.sendMachineId;
+            var icecandidate = e.content;
             this.BeControllerLogic?.AddRemoteIceCandite(remoteMachineId, icecandidate);
         }
 
-        private void onRecive_CalleeCreateIceCandite(string remoteMachineId, object remoteIceCandite)
+        [MessageType(msgType.client_onCallee_CreateIceCandite)]
+        public void onRecive_CalleeCreateIceCandite(websocketMsgTemp<IceCandidate> e)
         {
-            var icecandidate = JsonConvert.DeserializeObject<IceCandidate>(JsonConvert.SerializeObject(remoteIceCandite));
+            string remoteMachineId = e.sendMachineId;
+            var icecandidate = e.content;
             this.ControllerLogic?.AddRemoteIceCandite(remoteMachineId, icecandidate);
         }
 
-        private void onRecive_CallerSetRemoteSdpCompleted(string sendMachineId, object content)
+        [MessageType(msgType.client_onCaller_SetRemoteSdpCompleted)]
+        public void onRecive_CallerSetRemoteSdpCompleted(websocketMsgTemp<object> e)
         {
+            string sendMachineId = e.sendMachineId;
             this.BeControllerLogic?.onRemoteClientSdpCompleted(sendMachineId);
         }
 
-        private void onRecive_CalleeSetRemoteSdpCompleted(string sendMachineId, object content)
+        [MessageType(msgType.client_onCallee_SetRemoteSdpCompleted)]
+        public void onRecive_CalleeSetRemoteSdpCompleted(websocketMsgTemp<object> e)
         {
+            string sendMachineId = e.sendMachineId;
             this.ControllerLogic.onRemoteClientSdpCompleted(sendMachineId);
         }
 
-        private void onMachineOnLine(LYLUserMachineInfo machine)
+        [MessageType(msgType.system_clientNotOnline)]
+        public void onClientNotOnLine(websocketMsgTemp<LYLUserMachineInfo> data)
         {
+            ErrorDialogCon con = new ErrorDialogCon();
+            con.ErrorMsg = "用户不在线,消息发送失败";
+        }
+
+        [MessageType(msgType.system_onGetMyMachine)]
+        [MessageType(msgType.system_onMachineOnline)]
+        public void onMachineOnLine(websocketMsgTemp<LYLUserMachineInfo> data)
+        {
+            LYLUserMachineInfo machine = data.content;
             var findmachine = myMachines.FirstOrDefault(o => o.machineId == machine.machineId);
             if (findmachine == null)
             {
@@ -250,7 +221,9 @@ namespace UserMoudle.MachineWindow
             }
             this.OnPropertyChanged(nameof(this.myMachines));
         }
-        private void onMachineDownLine(LYLUserMachineInfo machine)
+
+        [MessageType(msgType.system_onMachineDownline)]
+        public void onMachineDownLine(LYLUserMachineInfo machine)
         {
             var findmachine = myMachines.FirstOrDefault(o => o.machineId == machine.machineId);
             if (findmachine != null)
@@ -260,8 +233,12 @@ namespace UserMoudle.MachineWindow
             }
         }
 
-        private void onMyMachineNameChange(string sendMachineId, object conten)
+        [MessageType(msgType.client_onNameChange)]
+        public void onMyMachineNameChange(websocketMsgTemp<object> e)
         {
+            string sendMachineId = e.sendMachineId;
+            object conten = e.content;
+
             var findmachine = this.myMachines.FirstOrDefault(o => o.machineId == sendMachineId);
             if (findmachine != null)
             {
@@ -272,8 +249,6 @@ namespace UserMoudle.MachineWindow
             }
         }
         #endregion
-
-
 
         #region 控件业务处理
         private DelegateCommand _requestConnectOtherCommand => new DelegateCommand(this.startConnectOtherMethod);
@@ -343,6 +318,16 @@ namespace UserMoudle.MachineWindow
                 WebSocketClient.SendMessage(m.machineId, newName, msgType.client_onNameChange);
             }
         }
+
+
+        #region 直播
+        public DelegateCommand srartPlayCommand { get { return new DelegateCommand(this._srartPlayMethod); } }
+        private void _srartPlayMethod(object obj)
+        {
+            NavigationHelper.NavigatedToView("直播主页面");
+        }
+        #endregion
+
         #endregion
 
     }

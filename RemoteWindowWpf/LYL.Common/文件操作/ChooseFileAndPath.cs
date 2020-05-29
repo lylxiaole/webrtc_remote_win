@@ -15,7 +15,7 @@ namespace LYL.Common
 {
     public struct Params
     {
-        public const int flagSize = 1024 * 50;
+        public const int flagSize = 1024 * 10;
     }
     public class ChooseFileAndPath
     {

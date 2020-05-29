@@ -34,8 +34,7 @@ namespace LYLRemote
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_Loaded;
-
+            this.Loaded += MainWindow_Loaded; 
         }
 
 

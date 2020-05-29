@@ -44,7 +44,7 @@ namespace UserMoudle.RemoteWindow
             this.config.iceServers = new List<iceServer>();
             this.config.iceServers.Add(new iceServer
             {
-                url = "turn:" + ServerAddrs.lylRtcServerAddr + "?transport=tcp",
+                url = "turn:" + ServerAddrs.lylRtcServerAddr + "?transport=udp",
                 username = MachineLogic.localMachine().machineId,
                 credential = MachineLogic.localMachine().machineId,
 
@@ -64,7 +64,7 @@ namespace UserMoudle.RemoteWindow
                     this.PeerConnection.onIceCandidate += onIceCandidateEvent;
                     this.PeerConnection.onIceConnectionState += onIceConnectionStateEvent;
                     this.PeerConnection.onIceGatheringState += onIceGatheringStateEvent;
-                    this.PeerConnection.onLocalFrame += onLocalFrameEvent;
+                    this.PeerConnection.onLocalDesktopRgbaFrame += onLocalFrameEvent;
                     this.PeerConnection.onAddStream += onAddStreamEvent;
                     this.PeerConnection.onAddTrack += onAddTrackEvent;
                     this.PeerConnection.onRemoveStream += onRemoveStreamEvent;
@@ -92,7 +92,7 @@ namespace UserMoudle.RemoteWindow
             {
 
             }
-            else if (e == RTCIceConnectionState.RTCIceConnectionStateDisconnected || e == RTCIceConnectionState.RTCIceConnectionStateClosed)
+            else if (e == RTCIceConnectionState.RTCIceConnectionStateDisconnected || e == RTCIceConnectionState.RTCIceConnectionStateClosed || e == RTCIceConnectionState.RTCIceConnectionStateFailed)
             {
                 this.onCloseEvent?.Invoke(this, this.Id);
             }
@@ -186,10 +186,7 @@ namespace UserMoudle.RemoteWindow
             this.PeerConnection.AddCandidate(iceCandidate);
 
         }
-        public void dealIceCandidate()
-        {
-            this.PeerConnection.DealCacheIceCandidate();
-        }
+    
         public void CloseConnection()
         {
             this.PeerConnection.Close();

@@ -8,6 +8,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         Icon="pack://application:,,,/LYL.Common;component/images/timg.ico"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
+        AllowsTransparency="False"
         mc:Ignorable="d" Title="主界面" Height="450" Width="800">
     <materialDesign:DialogHost Identifier="mainhost">
         <Grid>

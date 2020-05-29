@@ -27,6 +27,41 @@ namespace LYL.Common
         /// 客户端不在线
         /// </summary>
         system_clientNotOnline = 3,
+
+        /// <summary>
+        /// 开始直播
+        /// </summary>
+        system_startPlay = 50,
+        /// <summary>
+        /// 直播服务端创建offer成功
+        /// </summary>
+        system_onPlayServerOfferCreated = 51,
+        /// <summary>
+        /// 直播端创建answer给服务端
+        /// </summary>
+        system_setPlayServerAnswer = 52,
+        /// <summary>
+        /// 直播服务端创建了icecandidate
+        /// </summary>
+        system_onPlayServerIcecandidate = 53,
+        /// <summary>
+        /// 直播端创建了icecandidate
+        /// </summary>
+        system_onPlayerIcecandidate = 54, 
+        /// <summary>
+        /// 观看直播
+        /// </summary> 
+        system_onWatchPlay = 60,
+        /// <summary>
+        /// 观看者offer创建成功
+        /// </summary>
+        system_onWatcherOfferCreated = 61,
+        /// </summary>
+        system_onWatcherIcecandidate = 62,
+        /// <summary>
+        /// 直播端创建answer给服务端
+        /// </summary>
+        system_setWatcherAnswer = 63,
         //
         client_onRequestConnect = 1000,
         client_onAnswerRequestConnect = 1001,

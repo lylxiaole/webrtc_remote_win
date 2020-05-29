@@ -11,97 +11,139 @@
              mc:Ignorable="d"
              x:Name="currentControl"
              d:DesignHeight="450" d:DesignWidth="800">
+    <materialDesign:DialogHost Identifier="dskjfdsjfdslkjfsldkfj">
+        <materialDesign:DrawerHost  IsLeftDrawerOpen="{Binding IsChecked, ElementName=MenuToggleButton}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <Grid Width="212" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-
-    <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding IsChecked, ElementName=MenuToggleButton}">
-        <materialDesign:DrawerHost.LeftDrawerContent>
-            <DockPanel Width="212">
-                <DockPanel  HorizontalAlignment="Stretch" DockPanel.Dock="Top">
-                    <TextBlock Text="我的设备" FontSize="16" Margin="8" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"  FontSize="6" HorizontalAlignment="Right" VerticalAlignment="Top"  IsChecked="{Binding IsChecked, ElementName=MenuToggleButton, Mode=TwoWay}" />
-                </DockPanel>
-                <ListBox x:Name="DemoItemsListBox" Margin="0 0 0 16" SelectedIndex="0" ItemsSource="{Binding myMachines}" PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type comtypes:LYLUserMachineInfo}">
-                            <Grid Width="212"  >
-                                <TextBlock Text="{Binding machineName}" Margin="8 0 3 0" HorizontalAlignment="Left" />
-                                <Button Command="{Binding DataContext.requestConnectBrotherCommand, ElementName=currentControl}" CommandParameter="{Binding .}" Margin="0,0,16,0"
+                    <DockPanel Grid.Row="0">
+                        <DockPanel  HorizontalAlignment="Stretch" DockPanel.Dock="Top">
+                            <TextBlock Text="我的设备" FontSize="16" Margin="8" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"  FontSize="6" HorizontalAlignment="Right" VerticalAlignment="Top"  IsChecked="{Binding IsChecked, ElementName=MenuToggleButton, Mode=TwoWay}" />
+                        </DockPanel>
+                        <ListBox x:Name="DemoItemsListBox" Margin="0 0 0 16" SelectedIndex="0" ItemsSource="{Binding myMachines}" PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type comtypes:LYLUserMachineInfo}">
+                                    <Grid Width="212"  >
+                                        <TextBlock Text="{Binding machineName}" Margin="8 0 3 0" HorizontalAlignment="Left" />
+                                        <Button Command="{Binding DataContext.requestConnectBrotherCommand, ElementName=currentControl}" CommandParameter="{Binding .}" Margin="0,0,16,0"
                                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="20" Width="20"
                                             HorizontalAlignment="Right" ToolTip="MaterialDesignFloatingActionMiniButton">
-                                    <materialDesign:PackIcon Kind="DesktopClassic" Height="18" Width="18" />
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </DockPanel>
-        </materialDesign:DrawerHost.LeftDrawerContent>
-        <DockPanel>
-            <materialDesign:ColorZone  Height="40" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top">
-                <DockPanel LastChildFill="True">
-                    <ToggleButton DockPanel.Dock="Left" Margin="8,0,0,0" Style="{StaticResource MaterialDesignHamburgerToggleButton}" FontSize="8" IsChecked="False" x:Name="MenuToggleButton"/>
-                    <!--////-->
-                    <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                        <StackPanel>
-                            <Button Height="35"  Content="修改设备名称" Click="ChangeMachineNameButton_OnClick"/>
-                            <Button Height="35"  Content="退出" Click="MenuPopupButton_OnClick"/>
-                            <Separator/>
-                            <Button Height="35"  Content="项目主页" Click="MenuPopupButton_OnClick"/>
-                        </StackPanel>
-                    </materialDesign:PopupBox>
-                    <!--////-->
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"><Run Text="LYL远程"/></TextBlock>
-                </DockPanel>
-            </materialDesign:ColorZone>
-            <!--********************************************************************************-->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialDesign:Card Width="220" Margin="4 2 8 16" Height="270">
-                    <Grid VerticalAlignment="Stretch" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2">当前设备</TextBlock>
+                                            <materialDesign:PackIcon Kind="DesktopClassic" Height="18" Width="18" />
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    <!--***********************************************-->
+                    <DockPanel Grid.Row="1">
+                        <DockPanel  HorizontalAlignment="Stretch" DockPanel.Dock="Top">
+                            <TextBlock Text="更多功能" FontSize="16" Margin="8" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        </DockPanel>
+                        <ListBox  Margin="0 0 0 16" SelectedIndex="0"  >
+                            <ListBox.Items>
+                                <ListBoxItem>
+                                    <DockPanel LastChildFill="True" Width="212">
+                                        <TextBlock  Margin="8 0 3 0"  >视频会议</TextBlock>
+                                        <Button DockPanel.Dock="Right"  
+                                                 CommandParameter="{Binding .}" Margin="0,0,16,0"
+                                                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="20" Width="20"
+                                                 ToolTip="MaterialDesignFloatingActionMiniButton">
+                                            <materialDesign:PackIcon DockPanel.Dock="Right" Kind="YoutubePlay" Cursor="Hand" Height="18" Width="18" />
+                                        </Button>
+                                    </DockPanel>
+                                </ListBoxItem>
+                                <ListBoxItem  >
+                                    <DockPanel LastChildFill="True" Width="212">
+                                        <TextBlock  Margin="8 0 3 0"  >视频直播</TextBlock>
+                                        <Button DockPanel.Dock="Right" Command="{Binding DataContext.srartPlayCommand, ElementName=currentControl}" 
+                                                 CommandParameter="{Binding .}" Margin="0,0,16,0"
+                                                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="20" Width="20"
+                                                 ToolTip="MaterialDesignFloatingActionMiniButton">
+                                            <materialDesign:PackIcon DockPanel.Dock="Right" Kind="YoutubePlay" Cursor="Hand" Height="18" Width="18" />
+                                        </Button> 
+                                    </DockPanel>
+                                </ListBoxItem>
+                            </ListBox.Items>
+                        </ListBox>
+                    </DockPanel>
+                </Grid>
 
-                        <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
-                            <TextBox materialDesign:HintAssist.Hint="您的ID:"  Padding="2,0,0,0"
+
+
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <DockPanel>
+                <materialDesign:ColorZone  Height="40" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top">
+                    <DockPanel LastChildFill="True">
+                        <ToggleButton DockPanel.Dock="Left" Margin="8,0,0,0" Style="{StaticResource MaterialDesignHamburgerToggleButton}" FontSize="8" IsChecked="False" x:Name="MenuToggleButton"/>
+                        <!--////-->
+                        <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                            <StackPanel>
+                                <Button Height="35"  Content="修改设备名称" Click="ChangeMachineNameButton_OnClick"/>
+                                <Button Height="35"  Content="退出" Click="MenuPopupButton_OnClick"/>
+                                <Separator/>
+                                <Button Height="35"  Content="项目主页" Click="MenuPopupButton_OnClick"/>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        <!--////-->
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"><Run Text="LYL远程"/></TextBlock>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+                <!--********************************************************************************-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:Card Width="220" Margin="4 2 8 16" Height="270">
+                        <Grid VerticalAlignment="Stretch" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2">当前设备</TextBlock>
+
+                            <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+                                <TextBox materialDesign:HintAssist.Hint="您的ID:"  Padding="2,0,0,0"
                                  materialDesign:TextFieldAssist.TextBoxViewMargin="3 0 1 0"
                                  materialDesign:HintAssist.FloatingScale="0.8" Text="{Binding CurrentMachine.machineId}" IsReadOnly="True"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" />
-                        </Border>
-                        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}">
-                            <TextBox materialDesign:HintAssist.Hint="您的密码:"  Padding="2,0,0,0"
+                            </Border>
+                            <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                                <TextBox materialDesign:HintAssist.Hint="您的密码:"  Padding="2,0,0,0"
                                  materialDesign:TextFieldAssist.TextBoxViewMargin="6 0 1 0"
                                  materialDesign:HintAssist.FloatingScale="0.8"  Text="{Binding CurrentMachine.machinepwd}" IsReadOnly="True"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" />
-                        </Border>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Width="220" Margin="4 2 8 16" Height="270">
-                    <Grid VerticalAlignment="Stretch" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2">远程设备</TextBlock>
-                        <!--*****************-->
-                        <Border Grid.Row="1"  BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
-                            <TextBox materialDesign:HintAssist.Hint="远程设备ID:" Padding="2,0,0,0"
+                            </Border>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card Width="220" Margin="4 2 8 16" Height="270">
+                        <Grid VerticalAlignment="Stretch" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 2">远程设备</TextBlock>
+                            <!--*****************-->
+                            <Border Grid.Row="1"  BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+                                <TextBox materialDesign:HintAssist.Hint="远程设备ID:" Padding="2,0,0,0"
                                  materialDesign:TextFieldAssist.TextBoxViewMargin="3 0 1 0"
                                  materialDesign:HintAssist.FloatingScale="0.8" Text="" x:Name="remoteMachineId"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16" />
-                        </Border>
-                        <!--*****************-->
-                        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
-                            <Button Command="{Binding requestConnectOtherCommand}" CommandParameter="{Binding ElementName=remoteMachineId,Path=Text}" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="100" >
-                                开始连接
-                            </Button>
-                        </Border>
-                    </Grid>
-                </materialDesign:Card>
-            </StackPanel>
-        </DockPanel>
-    </materialDesign:DrawerHost>
+                            </Border>
+                            <!--*****************-->
+                            <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+                                <Button Command="{Binding requestConnectOtherCommand}" CommandParameter="{Binding ElementName=remoteMachineId,Path=Text}" Style="{StaticResource MaterialDesignRaisedDarkButton}" Width="100" >
+                                    开始连接
+                                </Button>
+                            </Border>
+                        </Grid>
+                    </materialDesign:Card>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
 </UserControl>

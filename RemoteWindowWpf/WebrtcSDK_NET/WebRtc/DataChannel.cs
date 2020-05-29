@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace WebrtcSDK_NET.WebRtc
@@ -25,18 +22,26 @@ namespace WebrtcSDK_NET.WebRtc
                   var message = new ChannelMessage
                   {
                       binary = binary,
-                      buffer = buffer.Substring(0, length),
-                      length = length
+                      buffer = buffer,
+                      length = buffer.Length
                   };
+
+                  if (buffer.Length < length)
+                  {
+                      message.length = buffer.Length;
+                      message.buffer.Substring(0, message.length).Trim();
+                  }
+
+
                   this.onChannelMessage?.Invoke(this, message);
               };
         }
-         
-        private int _connectionAddr { get; set; }
+
+        private IntPtr _connectionAddr { get; set; }
 
         public string label { get; set; }
- 
-        public DataChannel(string channellabel, int connectionAddr)
+
+        public DataChannel(string channellabel, IntPtr connectionAddr)
         {
             this.label = channellabel;
             this._connectionAddr = connectionAddr;
@@ -48,8 +53,8 @@ namespace WebrtcSDK_NET.WebRtc
         }
 
         public void SendChannelData(string data)
-        {
-            libwebrtcNET.SendChannelData(this.label, data?.Trim(), this._connectionAddr);
+        { 
+            libwebrtcNET.SendChannelData(this.label, data?.Trim(), this._connectionAddr);  
         }
 
         public event EventHandler<RTCDataChannelState> onChannelStateChanged;

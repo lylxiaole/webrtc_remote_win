@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WebrtcSDK_NET.WebRtc
 {
@@ -20,10 +16,10 @@ namespace WebrtcSDK_NET.WebRtc
         public string username { get; set; }
         public string credential { get; set; }
     }
-     
+
     public class WebRtcConfig
     {
-        public List<iceServer> iceServers { get; set; } 
+        public List<iceServer> iceServers { get; set; }
         public iceTransportPolicyType iceTransportPolicy { get; set; }
     }
 }

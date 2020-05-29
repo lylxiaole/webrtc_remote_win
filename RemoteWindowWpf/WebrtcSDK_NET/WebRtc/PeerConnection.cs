@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +14,6 @@ namespace WebrtcSDK_NET.WebRtc
             libwebrtcNET.Initialize();
         }
 
-
         ~PeerConnection()
         {
             this.Close();
@@ -26,9 +24,10 @@ namespace WebrtcSDK_NET.WebRtc
             _config = config;
         }
 
-        private int _connectionAddr { get; set; }
+        private IntPtr _connectionAddr { get; set; }
 
-        public List<MediaStream> MediaStreams { get; set; } = new List<MediaStream>();
+    
+        public List<MediaStream> RemoteMediaStreams { get; set; } = new List<MediaStream>();
 
         public RTCIceConnectionState ConnectionState { get; set; } = RTCIceConnectionState.RTCIceConnectionStateClosed;
 
@@ -40,8 +39,11 @@ namespace WebrtcSDK_NET.WebRtc
             foreach (var vv in _config.iceServers)
             {
                 libwebrtcNET.RegisterIceServer(vv.url, vv.username, vv.credential, this._connectionAddr);
-            } 
-
+            }
+            /////
+            libwebrtcNET.SetLocalVideoTrackRGBAHandle(this.onLocalVideoRgba_Callback_Handle, this._connectionAddr);
+            libwebrtcNET.SetLocalDesktopTrackRGBAHandle(this.onLocalDesktopRgba_Callback_Handle, this._connectionAddr);
+            /////
             libwebrtcNET.SetListenerAddStream(this.onAddStream_Callback_Handle, this._connectionAddr);
             libwebrtcNET.SetListenerOnNewDataChannel(this.onDataChannel_Callback_Handle, this._connectionAddr);
             libwebrtcNET.SetListenerIceCandidate(this.onIceCandidate_Callback_Handle, this._connectionAddr);
@@ -50,11 +52,9 @@ namespace WebrtcSDK_NET.WebRtc
             libwebrtcNET.SetListenerRemoveStream(this.onRemoveStream_Callback_Handle, this._connectionAddr);
             libwebrtcNET.SetListenerRemoveTrack(this.onRemoveTrack_Callback_Handle, this._connectionAddr);
             libwebrtcNET.SetListenerSignalingState(this.onSignalingState_Callback_Handle, this._connectionAddr);
-            libwebrtcNET.SetListenonLocalFrame(this.onLocalFrame_Callback_Handle, this._connectionAddr);
             libwebrtcNET.SetListenerAddTrack(this.onAddTrack_Callback_Hanle, this._connectionAddr);
+            libwebrtcNET.InitializePeerConnection(this._connectionAddr); 
         }
-
-
         //******************************设备相关***************************
         public List<VedioDevice> GetAllVedioDevices()
         {
@@ -103,8 +103,8 @@ namespace WebrtcSDK_NET.WebRtc
         public event EventHandler<RTCIceConnectionState> onIceConnectionState;
         public event EventHandler<RTCIceGatheringState> onIceGatheringState;
         public event EventHandler<RTCSignalingState> onSignalingState;
-        public event EventHandler<VedioFrame> onLocalFrame;
-
+        public event EventHandler<VedioFrame> onLocalVideoRgbaFrame;
+        public event EventHandler<VedioFrame> onLocalDesktopRgbaFrame;
         #endregion
         #region eventHandle,用于调用libwebrtc注册事件 
         private List<DataChannel> _channels = new List<DataChannel>();
@@ -114,29 +114,29 @@ namespace WebrtcSDK_NET.WebRtc
         private onAddStream_Callback _onAddStream_Callback_Handle;
         private onAddStream_Callback onAddStream_Callback_Handle
         {
-            get => _onAddStream_Callback_Handle = (string streamLabel) =>
+            get => _onAddStream_Callback_Handle = (string streamId) =>
               {
-                  //var mediaStream = this.MediaStreams.FirstOrDefault(o => o.streamLabel == streamLabel);
+                  //var mediaStream = this.RemoteMediaStreams.FirstOrDefault(o => o.streamId == streamId);
                   //if (mediaStream == null)
                   //{
-                  //    var newstream = new MediaStream(streamLabel );
-                  //    this.MediaStreams.Add(newstream);
-                  //    this.onAddStream?.Invoke(this, newstream);
-                  //}
+                  //    mediaStream = new MediaStream(streamId, this._connectionAddr);
+                  //    this.RemoteMediaStreams.Add(mediaStream); 
+                  //} 
+                  //this.onAddStream?.Invoke(this, mediaStream);
               };
         }
 
         private onAddTrack_Callback _onAddTrack_Callback_Hanle;
         private onAddTrack_Callback onAddTrack_Callback_Hanle
         {
-            get => _onAddTrack_Callback_Hanle = (string streamLabel, string trackId, string trackType) =>
+            get => _onAddTrack_Callback_Hanle = (string streamId, string trackId, string trackType) =>
               {
-                  var mediaStream = this.MediaStreams.FirstOrDefault(o => o.streamLabel == streamLabel);
+                  var mediaStream = this.RemoteMediaStreams.FirstOrDefault(o => o.streamId == streamId);
 
                   if (mediaStream == null)
                   {
-                      mediaStream = new MediaStream(streamLabel, this._connectionAddr);
-                      this.MediaStreams.Add(mediaStream);
+                      mediaStream = new MediaStream(streamId, this._connectionAddr);
+                      this.RemoteMediaStreams.Add(mediaStream);
                       this.onAddStream?.Invoke(this, mediaStream);
                   }
 
@@ -178,7 +178,7 @@ namespace WebrtcSDK_NET.WebRtc
         private onIceConnectionState_Callback onIceConnectionState_Callback_Handle
         {
             get => _onIceConnectionState_Callback_Handle = (int state) =>
-              { 
+              {
                   var stateEnum = (RTCIceConnectionState)state;
                   this.ConnectionState = stateEnum;
                   //if (stateEnum == RTCIceConnectionState.RTCIceConnectionStateCompleted)
@@ -186,11 +186,11 @@ namespace WebrtcSDK_NET.WebRtc
                   //    //
                   //    this._channels.ForEach(o => o.StartListenEvent());
                   //}
-                  if (stateEnum == RTCIceConnectionState.RTCIceConnectionStateClosed)
+                  if (stateEnum == RTCIceConnectionState.RTCIceConnectionStateDisconnected || stateEnum == RTCIceConnectionState.RTCIceConnectionStateClosed || stateEnum == RTCIceConnectionState.RTCIceConnectionStateFailed)
                   {
                       //
                       this.Close();
-                  } 
+                  }
                   this.onIceConnectionState?.Invoke(this, stateEnum);
               };
         }
@@ -207,18 +207,18 @@ namespace WebrtcSDK_NET.WebRtc
         private onRemoveStream_Callback _onRemoveStream_Callback_Handle;
         private onRemoveStream_Callback onRemoveStream_Callback_Handle
         {
-            get => _onRemoveStream_Callback_Handle = (string streamLabel) =>
+            get => _onRemoveStream_Callback_Handle = (string streamId) =>
               {
-                  this.onRemoveStream?.Invoke(this, streamLabel);
+                  this.onRemoveStream?.Invoke(this, streamId);
               };
         }
 
         private onRemoveTrack_Callback _onRemoveTrack_Callback_Handle;
         private onRemoveTrack_Callback onRemoveTrack_Callback_Handle
         {
-            get => _onRemoveTrack_Callback_Handle = (string streamLabel, string trackId) =>
+            get => _onRemoveTrack_Callback_Handle = (string streamId, string trackId) =>
               {
-                  var mediaStream = this.MediaStreams.FirstOrDefault(o => o.streamLabel == streamLabel);
+                  var mediaStream = this.RemoteMediaStreams.FirstOrDefault(o => o.streamId == streamId);
                   var track = new Track { mediaStream = mediaStream, trackId = trackId };
                   this.onRemoveTrack?.Invoke(this, track);
               };
@@ -233,24 +233,39 @@ namespace WebrtcSDK_NET.WebRtc
                };
         }
 
-        private onFrame_Callback _onLocalFrame_Callback_Handle;
-        private onFrame_Callback onLocalFrame_Callback_Handle
+        private onFrame_Callback _onLocalVideoRgba_Callback_Handle;
+        private onFrame_Callback onLocalVideoRgba_Callback_Handle
         {
-            get => _onLocalFrame_Callback_Handle = (IntPtr rgbImg, Int32 buffer_size, Int32 width, Int32 height, string vedioTrackId) =>
+            get => _onLocalVideoRgba_Callback_Handle = (IntPtr rgbImg, Int32 buffer_size, Int32 width, Int32 height, string vedioTrackId) =>
               {
-                  if (this.onLocalFrame != null)
+                  if (this.onLocalVideoRgbaFrame != null)
                   {
                       byte[] data = new byte[buffer_size];
                       Marshal.Copy(rgbImg, data, 0, buffer_size);
                       var lframe = new VedioFrame { rgbImg = data, width = width, height = height, vedioTrackId = vedioTrackId };
-                      this.onLocalFrame?.Invoke(this, lframe);
+                      this.onLocalVideoRgbaFrame?.Invoke(this, lframe);
+                  }
+              };
+        }
+
+        private onFrame_Callback _onLocalDesktopRgba_Callback_Handle;
+        private onFrame_Callback onLocalDesktopRgba_Callback_Handle
+        {
+            get => _onLocalDesktopRgba_Callback_Handle = (IntPtr rgbImg, Int32 buffer_size, Int32 width, Int32 height, string vedioTrackId) =>
+              {
+                  if (this.onLocalVideoRgbaFrame != null)
+                  {
+                      byte[] data = new byte[buffer_size];
+                      Marshal.Copy(rgbImg, data, 0, buffer_size);
+                      var lframe = new VedioFrame { rgbImg = data, width = width, height = height, vedioTrackId = vedioTrackId };
+                      this.onLocalDesktopRgbaFrame?.Invoke(this, lframe);
                   }
               };
         }
         #endregion
         //******************************peerconnection对外连接方法***************************
         public Task<SdpInfo> CreateOffer()
-        { 
+        {
             return Task.Run<SdpInfo>(() =>
             {
                 AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
@@ -271,18 +286,11 @@ namespace WebrtcSDK_NET.WebRtc
                 _autoResetEvent.WaitOne();
                 return sdpinfo;
             });
-
         }
         public void AddCandidate(IceCandidate iceCandidate)
         {
             libwebrtcNET.AddCandidate(iceCandidate.candidate, iceCandidate.sdpMid, iceCandidate.sdpMLineIndex, this._connectionAddr);
         }
-
-        public void DealCacheIceCandidate()
-        {
-            libwebrtcNET.DealCacheIceCandidate(this._connectionAddr);
-        }
-
         public Task<SdpInfo> SetRemoteDescription(string sdp, string type)
         {
             return Task.Run<SdpInfo>(() =>
@@ -332,15 +340,23 @@ namespace WebrtcSDK_NET.WebRtc
             this._channels.Remove(channel);
         }
 
-        public bool isClosed = false;
+        public int AddStream(MediaStream stream)
+        {
+            var ptr = libwebrtcNET.AddStream(stream.connectionAddr, stream.streamId, this._connectionAddr);
+
+            return ptr;
+        }
+
+        private bool isClosed = false;
         public void Close()
         {
             Task.Run(() =>
             {
-                if (isClosed==true)
+                if (isClosed == true)
                 {
                     return;
                 }
+                isClosed = true;
                 libwebrtcNET.CloseConnection(this._connectionAddr);
                 isClosed = true;
             });

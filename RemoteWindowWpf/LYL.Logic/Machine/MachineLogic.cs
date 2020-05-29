@@ -53,8 +53,7 @@ namespace LYL.Logic.Machine
             headers.Add("token", localMachine().token);
             return HTTPRuqest.LYLGet<MachineInfo>(url, rparams, headers);
         }
-
-
+         
         public static bool ChangeMachineName(string machineId, string machineName)
         {
             var url = ServerAddrs.lylApiServerAddr + "api/machine/changeMachineName";

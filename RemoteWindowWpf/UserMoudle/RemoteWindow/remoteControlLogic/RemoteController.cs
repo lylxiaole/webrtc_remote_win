@@ -82,10 +82,7 @@ namespace UserMoudle.RemoteWindow
             return true;
         }
 
-        public void onRemoteClientSdpCompleted()
-        {
-            this.dealIceCandidate();
-        }
+      
 
         protected override void onAddStreamEvent(object sender, MediaStream e)
         {
@@ -95,7 +92,7 @@ namespace UserMoudle.RemoteWindow
                 throw new Exception("一个链接不允许有多个媒体流");
             }
             this.currentMediaStream = e;
-            currentMediaStream.onRemoteFrame += E_onRemoteFrame;
+            currentMediaStream.onRemoteVideoFrame += E_onRemoteFrame;
         }
 
         protected override void onRemoveStreamEvent(object sender, string e)
@@ -105,7 +102,7 @@ namespace UserMoudle.RemoteWindow
             {
                 return;
             }
-            currentMediaStream.onRemoteFrame -= E_onRemoteFrame;
+            currentMediaStream.onRemoteVideoFrame -= E_onRemoteFrame;
             this.currentMediaStream.Close();
         }
 
