@@ -164,10 +164,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\WebrtcSDK_Net\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
-      <Project>{bd3049a3-eaad-4eef-900b-a0bcc1cb9ce0}</Project>
-      <Name>WebrtcSDK_NET</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Controls\Controls.csproj">
       <Project>{8af7e7ec-909c-4f8d-b56a-d6690f1a4517}</Project>
       <Name>Controls</Name>
@@ -195,6 +191,10 @@
     <ProjectReference Include="..\UserMoudle\UserMoudle.csproj">
       <Project>{352bf0ad-363d-490d-a865-f7c017603906}</Project>
       <Name>UserMoudle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
+      <Project>{a82510ef-844e-420c-bca1-df2a037638ca}</Project>
+      <Name>WebrtcSDK_NET</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

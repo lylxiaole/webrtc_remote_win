@@ -185,10 +185,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\WebrtcSDK_Net\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
-      <Project>{bd3049a3-eaad-4eef-900b-a0bcc1cb9ce0}</Project>
-      <Name>WebrtcSDK_NET</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Controls\Controls.csproj">
       <Project>{8AF7E7EC-909C-4F8D-B56A-D6690F1A4517}</Project>
       <Name>Controls</Name>
@@ -212,6 +208,10 @@
     <ProjectReference Include="..\LYL.Logic\LYL.Logic.csproj">
       <Project>{08BB7CB3-21E8-4DEE-BB2C-E4C2F8D870F5}</Project>
       <Name>LYL.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
+      <Project>{a82510ef-844e-420c-bca1-df2a037638ca}</Project>
+      <Name>WebrtcSDK_NET</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
