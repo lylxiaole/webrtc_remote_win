@@ -82,12 +82,11 @@ namespace UserMoudle.MachineWindow
             Application.Current.Dispatcher.Invoke(() =>
             {
                 waitingCon = new LoadingDialog();
-                waitingCon.PopupDialog(dialogIdentifier: "dskjfdsjfdslkjfsldkfj", closingEventHandler: (a, b) =>
-                {
-                    waitingCon = null; 
-                    Environment.Exit(0);
-
-                });
+                waitingCon.PopupDialog(closingEventHandler: (a, b) =>
+              {
+                  waitingCon = null;
+                  Environment.Exit(0);
+              });
             });
         }
         private void closeWaiting()

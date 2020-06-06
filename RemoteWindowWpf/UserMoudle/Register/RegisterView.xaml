@@ -19,6 +19,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                
                 <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryDark" VerticalAlignment="Stretch">
                     <materialDesign:PackIcon Kind="AccountEdit" Height="128" Width="128" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </materialDesign:ColorZone>

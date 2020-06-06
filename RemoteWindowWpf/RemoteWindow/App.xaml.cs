@@ -59,10 +59,7 @@ namespace LYLRemote
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            ErrorDialogCon con = new ErrorDialogCon();
-            con.ErrorMsg = e.Exception.Message;
-            //show the dialog
-            con.PopupDialog();
+            this.ShowMessageBoxError(e.Exception.Message, "错误", MessageBoxButton.OK); 
         }
     }
 }

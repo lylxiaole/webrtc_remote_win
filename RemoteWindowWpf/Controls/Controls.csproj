@@ -255,6 +255,10 @@
       <Project>{12358cdf-d705-426c-a4c1-233bf31fa87e}</Project>
       <Name>Dispath</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PanuonUI\Net45\Panuon.UI.Silver\Panuon.UI.Silver.csproj">
+      <Project>{461fe59d-57b8-4599-8e7d-439e27a2bbb2}</Project>
+      <Name>Panuon.UI.Silver</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="图片\背景1.jpg" />

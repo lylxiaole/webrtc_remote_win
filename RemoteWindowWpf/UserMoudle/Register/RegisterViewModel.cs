@@ -4,6 +4,8 @@ using Dispath;
 using Dispath.MoudleInterface;
 using LYL.Logic.Machine;
 using MaterialDesignThemes.Wpf;
+using Panuon.UI.Silver;
+using Panuon.UI.Silver.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,9 +71,22 @@ namespace UserMoudle.Register
 
         private DelegateCommand _requestCommand => new DelegateCommand(this.requestMethod);
         public DelegateCommand requestCommand { get { return this._requestCommand; } }
-        public void requestMethod(object param)
+        public async void requestMethod(object param)
         {
-            this.checkId = UserLogic.requestRegisterUser(userName, pwd, email);
+            var loadinghandle = this.ShowLoadingWindow();
+            try
+            {
+                this.checkId = await Task.Run(() => { return UserLogic.requestRegisterUser(userName, pwd, email); });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                loadinghandle.Close();
+            }
+
             this.OnPropertyChanged(nameof(this.checkId));
             this.OnPropertyChanged(nameof(this.isSendCheckRequest));
             this.OnPropertyChanged(nameof(this.requestVisibility));
@@ -82,7 +97,7 @@ namespace UserMoudle.Register
         public DelegateCommand checkCommand { get { return this._checkCommand; } }
         public void checkMethod(object param)
         {
-            if (UserLogic.checkRegisterUser(checkId, checkCode)==true)
+            if (UserLogic.checkRegisterUser(checkId, checkCode) == true)
             {
                 ErrorDialogCon con = new ErrorDialogCon();
                 con.ErrorMsg = "注册成功，请登录";
@@ -91,5 +106,7 @@ namespace UserMoudle.Register
                 NavigationHelper.NavigatedToView("用户登录");
             }
         }
+
+       
     }
 }

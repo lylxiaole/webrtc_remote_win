@@ -3,3 +3,5 @@ RemoteWindowWpf/*/bin/*
 RemoteWindowWpf/*/obj/* 
 packages/*
 /RemoteWindowWpf/Debug
+/RemoteWindowWpf/PanuonUI/Net45/Panuon.UI.Silver/bin/Debug
+/RemoteWindowWpf/PanuonUI/Net45/Panuon.UI.Silver/obj/Debug

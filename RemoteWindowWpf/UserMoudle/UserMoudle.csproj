@@ -209,8 +209,12 @@
       <Project>{08BB7CB3-21E8-4DEE-BB2C-E4C2F8D870F5}</Project>
       <Name>LYL.Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PanuonUI\Net45\Panuon.UI.Silver\Panuon.UI.Silver.csproj">
+      <Project>{461fe59d-57b8-4599-8e7d-439e27a2bbb2}</Project>
+      <Name>Panuon.UI.Silver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
-      <Project>{a82510ef-844e-420c-bca1-df2a037638ca}</Project>
+      <Project>{541E017F-41CD-4722-9CF2-D604B9887748}</Project>
       <Name>WebrtcSDK_NET</Name>
     </ProjectReference>
   </ItemGroup>

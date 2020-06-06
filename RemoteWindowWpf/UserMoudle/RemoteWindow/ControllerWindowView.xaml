@@ -12,7 +12,7 @@
         x:Name="topControl" xmlns:con="http://www.lylproject.controls" 
         HeaderVisibility="Collapsed" 
         Title="lyl远程列表" Height="450" Width="800">
-    <materialDesign:DialogHost Identifier="controlDialogHost">
+    <materialDesign:DialogHost x:Name="dialoghost" Identifier="controlDialogHost2"  >
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -55,7 +55,7 @@
                     </Button>
                     <Separator />
                     <!--////-->
-                    <Button ToolTip="查看文件列表" Command="{Binding showFileListCommand}">
+                    <Button ToolTip="查看文件列表" Command="{Binding showFileListCommand}" CommandParameter="{Binding ElementName=dialoghost,Path=Identifier}">
                         <materialDesign:Badged DockPanel.Dock="Right" VerticalAlignment="Center" Badge="{Binding CurrentFileCount}" ToolTip="文件列表">
                             <materialDesign:PackIcon Kind="Receipt"   />
                         </materialDesign:Badged>

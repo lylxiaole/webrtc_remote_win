@@ -8,7 +8,7 @@
              mc:Ignorable="d"  
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="450" d:DesignWidth="800">
-    <materialDesign:DialogHost Identifier="dskjfdsjfdslkjfsldkfj">
+     
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -35,5 +35,5 @@
                 </DockPanel>
             </Grid>
         </Grid>
-    </materialDesign:DialogHost>
+ 
 </UserControl>

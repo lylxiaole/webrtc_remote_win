@@ -85,15 +85,13 @@ namespace UserMoudle.RemoteWindow.FileSendManager
         public DelegateCommand showFileListCommand => new DelegateCommand(this.showFileList);
         private void showFileList(object obj)
         {
-            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                this.FileListView = null;
-                this.FileListView = new FileList();
-                this.FileListView.Width = 400;
-                this.FileListView.Height = 400;
-                this.FileListView.PopupDialog("controlDialogHost");
-                this.FileListView.FileCountRefresh();
-            }));
+            string dialogHostIden = obj.ToString();
+            this.FileListView = null;
+            this.FileListView = new FileList();
+            this.FileListView.Width = 400;
+            this.FileListView.Height = 400;
+            this.FileListView.PopupDialog(dialogHostIden);
+            this.FileListView.FileCountRefresh();
         }
 
 

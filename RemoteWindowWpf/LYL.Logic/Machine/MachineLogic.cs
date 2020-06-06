@@ -42,6 +42,17 @@ namespace LYL.Logic.Machine
             }
         }
 
+
+        public static void DeleteMachineInfo()
+        {
+            var localmachine = localMachine(); 
+            using (var dbcontext = new SqliteDbContext())
+            {
+                dbcontext.Delete(localmachine);
+            }
+        }
+
+
         public static MachineInfo GetMachineById(string machineId)
         {
             var url = ServerAddrs.lylApiServerAddr + "api/machine/getMachaineById";

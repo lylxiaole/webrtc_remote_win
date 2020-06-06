@@ -16,7 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using UserMoudle.RemoteWindow.FileSendManager; 
+using UserMoudle.RemoteWindow.FileSendManager;
 using WebrtcSDK_NET.WebRtc;
 
 namespace UserMoudle.RemoteWindow
@@ -54,18 +54,18 @@ namespace UserMoudle.RemoteWindow
                     this.OnPropertyChanged();
                 });
             }
-        } 
+        }
         public ToolBarManagerViewModel toolbarManager { get; set; } = new ToolBarManagerViewModel();
-         
+
         public RemoteController findRemoteController(string remoteId)
-        { 
+        {
             return controllers.FirstOrDefault(o => o.remoteMachine.machineId == remoteId);
         }
-         
+
         public Image RemoteImageControl { get; set; }
 
-        public ControllerWindowViewModel( )
-        { 
+        public ControllerWindowViewModel()
+        {
         }
 
         #region sdp和ice信令处理 
@@ -78,9 +78,9 @@ namespace UserMoudle.RemoteWindow
             var newcontrol = this.findRemoteController(machineId);
             if (newcontrol == null)
             {
-                newcontrol = new RemoteController( ); 
-                this.OnPropertyChanged(nameof(this.controllers)); 
-                newcontrol.onCloseEvent += RemoteController_onCloseEvent; 
+                newcontrol = new RemoteController();
+                this.OnPropertyChanged(nameof(this.controllers));
+                newcontrol.onCloseEvent += RemoteController_onCloseEvent;
                 newcontrol.ConnectRemote(machineId);
                 this.controllers.Add(newcontrol);
                 this.OnPropertyChanged(nameof(controllers));
@@ -135,7 +135,7 @@ namespace UserMoudle.RemoteWindow
         //    this.currentController.SendWinApiEvents(events);
         //} 
         public void SendWinEvent(Record revent)
-        { 
+        {
             if (this.currentController == null)
             {
                 return;
@@ -192,7 +192,7 @@ namespace UserMoudle.RemoteWindow
                 v.CloseConnection();
             }
         }
-       
+
         #endregion
 
         ~ControllerWindowViewModel()

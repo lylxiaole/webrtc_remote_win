@@ -3,6 +3,7 @@ using Dispath.MoudleInterface;
 using LYL.Logic.Machine;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
+using Panuon.UI.Silver;
 using ShowMeTheXAML;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace LYLRemote
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : CommonWindow
+    public partial class MainWindow : WindowX
     {
         public MainWindow()
         {
@@ -40,31 +41,7 @@ namespace LYLRemote
 
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            NavigationHelper.RegisterContentControl(this.content);
-            NavigationHelper.NavigatedToView("用户登录");
-            try
-            {
-                var machineInfo = MachineLogic.localMachine();
-                var netmachineInfo = UserLogic.AutoLogin(machineInfo.token);
-                if (netmachineInfo == null)
-                {
-                    NavigationHelper.NavigatedToView("用户登录");
-                }
-                if (netmachineInfo.machineId != machineInfo.machineId)
-                {
-                    NavigationHelper.NavigatedToView("用户登录");
-                }
-                machineInfo.machineName = netmachineInfo.machineName;
-                machineInfo.machinepwd = netmachineInfo.machinePwd;
-                MachineLogic.RecordMachineInfo(machineInfo);
-                NavigationHelper.NavigatedToView("主界面");
-            }
-            catch (Exception)
-            {
-                NavigationHelper.NavigatedToView("用户登录");
-            }
-
+        {  ///////////////////////////////
             var Swatches = new SwatchesProvider().Swatches;
             var swatch = Swatches.FirstOrDefault(o => o.Name == "blue");
             ModifyTheme(theme =>
@@ -72,27 +49,48 @@ namespace LYLRemote
                 theme.SetBaseTheme(Theme.Light);
             });
             ModifyTheme(theme => theme.SetPrimaryColor(swatch.ExemplarHue.Color));
-            ModifyTheme(theme => theme.SetSecondaryColor(swatch.AccentExemplarHue.Color));
+            ModifyTheme(theme => theme.SetSecondaryColor(swatch.AccentExemplarHue.Color)); 
             ///////////////////////////////
-            /// 
+            NavigationHelper.RegisterContentControl(this.content);
+            NavigationHelper.NavigatedToView("用户登录");
+            try
+            {
+                var machineInfo = MachineLogic.localMachine();
+                if (machineInfo == null|| string.IsNullOrEmpty(machineInfo.token))
+                {
+                    NavigationHelper.NavigatedToView("用户登录");
+                    return;
+                }
+
+
+                var netmachineInfo = UserLogic.AutoLogin(machineInfo.token);
+                if (netmachineInfo == null|| netmachineInfo.machineId != machineInfo.machineId)
+                {
+                    NavigationHelper.NavigatedToView("用户登录");
+                    return;
+                }
+               
+                machineInfo.machineName = netmachineInfo.machineName;
+                machineInfo.machinepwd = netmachineInfo.machinePwd;
+                MachineLogic.RecordMachineInfo(machineInfo);
+                NavigationHelper.NavigatedToView("主界面");
+            }
+            catch (Exception ex)
+            {
+                NavigationHelper.NavigatedToView("用户登录");
+                throw;
+            } 
         }
 
 
         private static void ModifyTheme(Action<ITheme> modificationAction)
-        {
-
+        { 
             PaletteHelper paletteHelper = new PaletteHelper();
             ITheme theme = paletteHelper.GetTheme();
             modificationAction?.Invoke(theme);
             paletteHelper.SetTheme(theme);
         }
-
-
-        private void MenuPopupButton_OnClick(object sender, RoutedEventArgs e)
-        {
-        }
-
-
+         
         protected override void OnClosing(CancelEventArgs e)
         {
             try

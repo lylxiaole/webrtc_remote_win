@@ -24,10 +24,8 @@ namespace UserMoudle
             if (UserLogic.Login(this.userName, pwd, Environment.MachineName))
             {
                 var machineInfo = MachineLogic.localMachine();
-                ErrorDialogCon con = new ErrorDialogCon();
-                con.ErrorMsg = "登录成功,机器ID:" + machineInfo.machineId + ",机器密码:" + machineInfo.machinepwd;
-                //show the dialog
-                con.PopupDialog();
+                var msg= "登录成功,机器ID:" + machineInfo.machineId + ",机器密码:" + machineInfo.machinepwd;
+                this.ShowMessageBoxSuccess(msg, "成功", System.Windows.MessageBoxButton.OK); 
                 NavigationHelper.NavigatedToView("主界面");
             }
         }

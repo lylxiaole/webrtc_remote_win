@@ -12,10 +12,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML" 
              Height="250" Width="400" 
-                   Title="被控界面"
+             Title="被控界面"
               Icon="pack://application:,,,/LYL.Common;component/images/timg.ico"
              d:DesignHeight="450" d:DesignWidth="800">
-    <materialDesign:DialogHost Identifier="controlDialogHost" >
+    <materialDesign:DialogHost x:Name="dialoghost" Identifier="controlDialogHost1" >
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -29,7 +29,7 @@
                     </Button>
                     <Separator />
                     <!--////-->
-                    <Button  ToolTip="查看文件列表" Command="{Binding showFileListCommand}">
+                    <Button  ToolTip="查看文件列表" Command="{Binding showFileListCommand}" CommandParameter="{Binding ElementName=dialoghost,Path=Identifier}">
                         <materialDesign:Badged DockPanel.Dock="Right" VerticalAlignment="Center"  Badge="{Binding CurrentFileCount}" ToolTip="文件列表">
                             <materialDesign:PackIcon Kind="Receipt"   />
                         </materialDesign:Badged>

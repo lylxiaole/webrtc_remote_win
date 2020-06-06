@@ -31,7 +31,7 @@ namespace UserMoudle.MachineWindow
         public MachineWindowView()
         {
             InitializeComponent();
-            if(viewModel==null)
+            if (viewModel == null)
             {
                 viewModel = new MachineWindowViewModel();
             }
@@ -50,6 +50,8 @@ namespace UserMoudle.MachineWindow
         #region 快捷操作按钮 
         private void MenuPopupButton_OnClick(object sender, RoutedEventArgs e)
         {
+            MachineLogic.DeleteMachineInfo();
+            NavigationHelper.NavigatedToView("用户登录");
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -59,7 +61,7 @@ namespace UserMoudle.MachineWindow
         private void ChangeMachineNameButton_OnClick(object sender, RoutedEventArgs e)
         {
             ChangeMachineNameCon popup = new ChangeMachineNameCon(MachineLogic.localMachine().machineName);
-            popup.PopupDialog(closingEventHandler: this.onChangeMachineNamePopupClosed, dialogIdentifier: "dskjfdsjfdslkjfsldkfj");
+            popup.PopupDialog(closingEventHandler: this.onChangeMachineNamePopupClosed);
         }
 
         private void onChangeMachineNamePopupClosed(object sender, DialogClosingEventArgs eventArgs)
@@ -72,6 +74,6 @@ namespace UserMoudle.MachineWindow
 
         #endregion
 
-     
+
     }
 }

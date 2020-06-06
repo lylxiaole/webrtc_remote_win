@@ -23,7 +23,7 @@ namespace LYL.Common
             {
                 foreach (var i in header.Keys)
                 {
-                    request.Headers.Add(i.ToString(), header[i].ToString());
+                    request.Headers.Add(i.ToString(), header[i]?.ToString());
                 }
             }
             if (!string.IsNullOrEmpty(data))

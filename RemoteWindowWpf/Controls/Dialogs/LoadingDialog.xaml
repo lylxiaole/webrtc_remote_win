@@ -7,8 +7,7 @@
              mc:Ignorable="d" 
              xmlns:Dialogs="clr-namespace:Controls.Dialogs"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             Width="120" Height="120"
-             >
+             Width="120" Height="120" >
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Margin="16">
             <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" HorizontalAlignment="Center" Margin="16" IsIndeterminate="True" Value="0" />

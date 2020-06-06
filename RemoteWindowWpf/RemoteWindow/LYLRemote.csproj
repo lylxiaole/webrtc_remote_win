@@ -188,13 +188,13 @@
       <Project>{08bb7cb3-21e8-4dee-bb2c-e4c2f8d870f5}</Project>
       <Name>LYL.Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PanuonUI\Net45\Panuon.UI.Silver\Panuon.UI.Silver.csproj">
+      <Project>{461fe59d-57b8-4599-8e7d-439e27a2bbb2}</Project>
+      <Name>Panuon.UI.Silver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UserMoudle\UserMoudle.csproj">
       <Project>{352bf0ad-363d-490d-a865-f7c017603906}</Project>
       <Name>UserMoudle</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
-      <Project>{a82510ef-844e-420c-bca1-df2a037638ca}</Project>
-      <Name>WebrtcSDK_NET</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
