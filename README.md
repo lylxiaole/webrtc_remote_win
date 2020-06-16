@@ -5,7 +5,7 @@
 
 #### 软件架构
 ##### 技术框架是基于.net4.5.2的WPF,以下介绍三个启动项:
-###### 1.LYLRemote:这个启动项是软件的主程序,调试和开发就使用这也启动项就行了，Visual Studio需要用管理员身份打开
+###### 1.LYLRemote:这个启动项是软件的主程序
 ###### 2.WinServiceStartUp:这个启动项是windows服务，远程桌面为了完成一些系统级的操作，需要用windows服务启动
 ###### 3.StartApp：这个是安装包的启动程序，它通知windows服务，再由windows服务启动远程桌面。
 
