@@ -14,9 +14,9 @@
 
 #### 界面展示
 
-1.  ![输入图片说明](https://images.gitee.com/uploads/images/2020/0531/020804_7f031212_5210713.jpeg "1590860263(1).jpg")
-2.  ![输入图片说明](https://images.gitee.com/uploads/images/2020/0531/020832_0c33e7bd_5210713.jpeg "1590860593(1).jpg")
-3.  ![输入图片说明](https://images.gitee.com/uploads/images/2020/0531/020848_39a680e1_5210713.jpeg "1590860614(1).jpg")
+1.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/1.jpg "1.jpg")
+2.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/2.jpg "2.jpg")
+3.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/3.jpg "3.jpg")
 
 
  
