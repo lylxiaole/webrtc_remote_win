@@ -13,10 +13,9 @@
 1.  需要使用qq邮箱进行注册，一个账号登录于各台机器上，可以见到所有机器。(目前还存在较多的bug，请谅解)
 
 #### 界面展示
-
-1.  ![输入图片说明](https://gitee.com/lylxiaole/images_resp/blob/master/remote_win/QQ%E5%9B%BE%E7%89%8720210420135236.png "1.jpg")
-2.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/2.jpg "2.jpg")
-3.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/3.jpg "3.jpg")
-
-
+ 
+1.  ![输入图片说明](http://m.qpic.cn/psc?/V50iXE9s345ckt2G1riZ1hYy2t1f3A5b/TmEUgtj9EK6.7V8ajmQrEKxPoWmt2jhtSNHZMkEHRoH.R6BVQxr2fODM*UVPkHyoSix5leS7DAjYi3CpfuqEvH10tKKqbNOji8VV1WQJjek!/b&bo=ZQe6AgAAAAADF.g!&rf=viewer_4&t=5 "1.jpg")
+2.  ![输入图片说明](http://m.qpic.cn/psc?/V50iXE9s345ckt2G1riZ1hYy2t1f3A5b/TmEUgtj9EK6.7V8ajmQrEKw3NQxJ3dgZ0jX39yodNdzBH9LwpXQLShpPoXdGOhbC0KH3y*FnZqO02vbQW1xIwHJcFvvIMlwr2hFZIJUHt1w!/b&bo=eweOAgAAAAADF8I!&rf=viewer_4&t=5 "2.jpg")
+3.  ![输入图片说明](http://m.qpic.cn/psc?/V50iXE9s345ckt2G1riZ1hYy2t1f3A5b/TmEUgtj9EK6.7V8ajmQrEObA.MvYlinMr6jyqxA0yQPU8F6P1ETQrDgVzzRSLPNsarc0YJJLLpSmMMDtb8SrZscytLe*.3mhNrNTW2*ke*8!/b&bo=dge9AgAAAAADF*w!&rf=viewer_4&t=5 "3.jpg")
+ 
  
