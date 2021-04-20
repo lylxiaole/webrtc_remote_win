@@ -11,6 +11,6 @@ namespace LYL.Data.Models
     {
         [PrimaryKey]
         [AutoIncrement]
-        public int ID { get; set; }
+        public string id { get; set; }
     }
 }

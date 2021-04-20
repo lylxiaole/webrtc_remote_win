@@ -201,7 +201,7 @@ namespace EncodeousCommon.Sys.Windows
 
         public static bool SwitchToInputDesktop()
         {
-            //return true;
+            return true;
             var inputDesktop = OpenInputDesktop();
 
             try

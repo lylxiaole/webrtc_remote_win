@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace LYL.Logic.Machine
 {
+
     class loginInfo
     {
         public string machineId { get; set; }
         public string machineName { get; set; }
+        /// <summary>
+        /// web,windows,ios phone,android phone
+        /// </summary>
+        public machineType machineType { get; set; }
         public string username { get; set; }
         public string pwd { get; set; }
     }
@@ -25,7 +30,8 @@ namespace LYL.Logic.Machine
             {
                 pwd = pwd,
                 machineName = machineName,
-                username = username
+                username = username,
+                machineType = machineType.windows
             };
             if (localmachine.username == username)
             {

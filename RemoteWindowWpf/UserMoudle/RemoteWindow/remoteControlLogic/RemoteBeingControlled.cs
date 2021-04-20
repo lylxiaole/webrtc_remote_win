@@ -117,7 +117,7 @@ namespace UserMoudle.RemoteWindow
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             { 
             }
         }

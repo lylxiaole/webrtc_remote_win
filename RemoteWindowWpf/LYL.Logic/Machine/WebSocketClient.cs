@@ -97,8 +97,8 @@ namespace LYL.Logic.Machine
         public static void SendMessage(string remoteMachineId, object content, msgType msgtype)
         {
             websocketMsgTemp<object> data = new websocketMsgTemp<object>();
-            data.sendMachineId = MachineLogic.localMachine().machineId;
-            data.receiverMachineId = remoteMachineId;
+            data.senderId = MachineLogic.localMachine().machineId;
+            data.receiverId = remoteMachineId;
             data.msgType = msgtype;
             data.content = content;
             wsclient.Send(JsonConvert.SerializeObject(data));

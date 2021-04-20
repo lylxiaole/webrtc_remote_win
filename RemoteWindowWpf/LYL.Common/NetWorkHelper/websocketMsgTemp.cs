@@ -80,8 +80,8 @@ namespace LYL.Common
 
     public class websocketMsgTemp<T>
     {
-        public string sendMachineId { get; set; }
-        public string receiverMachineId { get; set; }
+        public string senderId { get; set; }
+        public string receiverId { get; set; }
         public msgType msgType { get; set; }
         public T content { get; set; }
     }

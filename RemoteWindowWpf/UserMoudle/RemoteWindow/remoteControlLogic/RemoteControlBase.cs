@@ -42,14 +42,24 @@ namespace UserMoudle.RemoteWindow
             this.Id = Guid.NewGuid();
             this.config = new WebRtcConfig();
             this.config.iceServers = new List<iceServer>();
+            //this.config.iceServers.Add(new iceServer
+            //{
+            //    url = "turn:" + ServerAddrs.lylRtcServerAddr + "?transport=udp",
+            //    username = MachineLogic.localMachine().machineId,
+            //    credential = MachineLogic.localMachine().machineId,
+
+            //});
+
+
+
             this.config.iceServers.Add(new iceServer
             {
-                url = "turn:" + ServerAddrs.lylRtcServerAddr + "?transport=udp",
-                username = MachineLogic.localMachine().machineId,
-                credential = MachineLogic.localMachine().machineId,
+                url = "stun:" + ServerAddrs.lylRtcServerAddr + "?transport=udp",
+                username = "lyl.org",
+                credential = "lyl.org",
 
             });
-            this.config.iceTransportPolicy = iceTransportPolicyType.kRelay;
+            this.config.iceTransportPolicy = iceTransportPolicyType.kAll;
             PeerConnection.RegisterIceServer(this.config);
         }
         protected void InitlizeConnetion()

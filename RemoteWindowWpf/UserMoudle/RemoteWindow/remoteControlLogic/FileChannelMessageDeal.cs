@@ -246,6 +246,7 @@ namespace UserMoudle.RemoteWindow.remoteControlLogic
                 Data = filereader.CurrentFileInfo,
                 SendFileType = SendFileType.StartSendFile
             };
+            data.Data.filePath = "";
             channel.SendChannelData(JsonConvert.SerializeObject(data));
 
         }

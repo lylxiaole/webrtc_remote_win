@@ -214,7 +214,7 @@
       <Name>Panuon.UI.Silver</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
-      <Project>{541E017F-41CD-4722-9CF2-D604B9887748}</Project>
+      <Project>{541e017f-41cd-4722-9cf2-d604b9887748}</Project>
       <Name>WebrtcSDK_NET</Name>
     </ProjectReference>
   </ItemGroup>

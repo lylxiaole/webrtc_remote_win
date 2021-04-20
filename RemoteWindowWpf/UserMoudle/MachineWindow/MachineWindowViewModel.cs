@@ -33,7 +33,17 @@ namespace UserMoudle.MachineWindow
                 return machineInfo;
             }
         }
-        public ObservableCollection<LYLUserMachineInfo> myMachines { get; set; } = new ObservableCollection<LYLUserMachineInfo>();
+
+
+        public ObservableCollection<LYLUserMachineInfo> _myMachines { get; set; } = new ObservableCollection<LYLUserMachineInfo>();
+        public ObservableCollection<LYLUserMachineInfo> myMachines
+        {
+            get
+            {
+                var list= this._myMachines.Where(o => o.machineType != machineType.web).ToList();
+                return new ObservableCollection<LYLUserMachineInfo>(list);
+            }
+        }
 
         public MachineWindowViewModel()
         {
@@ -108,7 +118,7 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onRequestConnect)]
         public void onRecive_RequestConnect(websocketMsgTemp<object> e)
         {
-            string remoteMachineId = e.sendMachineId;
+            string remoteMachineId = e.senderId;
             string machinePwd = e.content.ToString();
 
 
@@ -125,7 +135,7 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onAnswerRequestConnect)]
         public void onRecive_AnswerRequestConnect(websocketMsgTemp<object> e)
         {
-            string remoteMachineId = e.sendMachineId;
+            string remoteMachineId = e.senderId;
             var isAgree = bool.Parse(e.content.ToString());
 
             if (isAgree == false)
@@ -144,14 +154,14 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onCutPeerConnection)]
         public void onRecive_CutPeerConnection(websocketMsgTemp<object> e)
         {
-            string remoteMachineId = e.sendMachineId;
+            string remoteMachineId = e.senderId;
         }
 
 
         [MessageType(msgType.client_onCaller_CreateOffer)]
         public void onRecive_CreateOffer(websocketMsgTemp<SdpInfo> e)
         {
-            string remoteMachineId = e.sendMachineId;
+            string remoteMachineId = e.senderId;
             //var sdpinfo = JsonConvert.DeserializeObject<SdpInfo>(JsonConvert.SerializeObject(remoteOffer)); 
             var sdpinfo = e.content;
             this.BeControllerLogic.ReciveRemoteConnection(remoteMachineId, sdpinfo);
@@ -160,7 +170,7 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onCallee_CreateAnswer)]
         public void onRecive_CreateAnswer(websocketMsgTemp<SdpInfo> e)
         {
-            string remoteMachineId = e.sendMachineId;
+            string remoteMachineId = e.senderId;
             //, object remoteAnswer
             var sdpinfo = e.content;
             this.ControllerLogic.SetRemoteAnswer(remoteMachineId, sdpinfo);
@@ -169,7 +179,7 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onCaller_CreateIceCandite)]
         public void onRecive_CallerCreateIceCandite(websocketMsgTemp<IceCandidate> e)
         {
-            string remoteMachineId = e.sendMachineId;
+            string remoteMachineId = e.senderId;
             var icecandidate = e.content;
             this.BeControllerLogic?.AddRemoteIceCandite(remoteMachineId, icecandidate);
         }
@@ -177,7 +187,7 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onCallee_CreateIceCandite)]
         public void onRecive_CalleeCreateIceCandite(websocketMsgTemp<IceCandidate> e)
         {
-            string remoteMachineId = e.sendMachineId;
+            string remoteMachineId = e.senderId;
             var icecandidate = e.content;
             this.ControllerLogic?.AddRemoteIceCandite(remoteMachineId, icecandidate);
         }
@@ -185,14 +195,14 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onCaller_SetRemoteSdpCompleted)]
         public void onRecive_CallerSetRemoteSdpCompleted(websocketMsgTemp<object> e)
         {
-            string sendMachineId = e.sendMachineId;
+            string sendMachineId = e.senderId;
             this.BeControllerLogic?.onRemoteClientSdpCompleted(sendMachineId);
         }
 
         [MessageType(msgType.client_onCallee_SetRemoteSdpCompleted)]
         public void onRecive_CalleeSetRemoteSdpCompleted(websocketMsgTemp<object> e)
         {
-            string sendMachineId = e.sendMachineId;
+            string sendMachineId = e.senderId;
             this.ControllerLogic.onRemoteClientSdpCompleted(sendMachineId);
         }
 
@@ -211,7 +221,7 @@ namespace UserMoudle.MachineWindow
             var findmachine = myMachines.FirstOrDefault(o => o.machineId == machine.machineId);
             if (findmachine == null)
             {
-                this.myMachines.Add(machine);
+                this._myMachines.Add(machine);
             }
             else
             {
@@ -235,7 +245,7 @@ namespace UserMoudle.MachineWindow
         [MessageType(msgType.client_onNameChange)]
         public void onMyMachineNameChange(websocketMsgTemp<object> e)
         {
-            string sendMachineId = e.sendMachineId;
+            string sendMachineId = e.senderId;
             object conten = e.content;
 
             var findmachine = this.myMachines.FirstOrDefault(o => o.machineId == sendMachineId);
@@ -250,12 +260,10 @@ namespace UserMoudle.MachineWindow
         #endregion
 
         #region 控件业务处理
-        private DelegateCommand _requestConnectOtherCommand => new DelegateCommand(this.startConnectOtherMethod);
-
+        private DelegateCommand _requestConnectOtherCommand => new DelegateCommand(this.startConnectOtherMethod); 
         public DelegateCommand requestConnectOtherCommand { get { return this._requestConnectOtherCommand; } }
 
-        private DelegateCommand _requestConnectBrotherCommand => new DelegateCommand(this.startConnectBrotherMethod);
-
+        private DelegateCommand _requestConnectBrotherCommand => new DelegateCommand(this.startConnectBrotherMethod); 
         public DelegateCommand requestConnectBrotherCommand { get { return this._requestConnectBrotherCommand; } }
 
         private async void startConnectOtherMethod(object obj)

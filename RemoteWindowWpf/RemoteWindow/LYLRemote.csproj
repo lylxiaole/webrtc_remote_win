@@ -196,6 +196,10 @@
       <Project>{352bf0ad-363d-490d-a865-f7c017603906}</Project>
       <Name>UserMoudle</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebrtcSDK_NET\WebrtcSDK_NET.csproj">
+      <Project>{541e017f-41cd-4722-9cf2-d604b9887748}</Project>
+      <Name>WebrtcSDK_NET</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="timg.ico">
