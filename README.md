@@ -14,7 +14,7 @@
 
 #### 界面展示
 
-1.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/1.jpg "1.jpg")
+1.  ![输入图片说明]https://gitee.com/lylxiaole/images_resp/blob/master/remote_win/QQ%E5%9B%BE%E7%89%8720210420135236.png "1.jpg")
 2.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/2.jpg "2.jpg")
 3.  ![输入图片说明](https://github.com/lylxiaole/projectImgs/blob/master/remoteWin/3.jpg "3.jpg")
 
